@@ -120,6 +120,18 @@ class Writer extends AbstractBase
      */
     public function writeOne($data)
     {
+        $data = $this->convertToArrayIfNeeded($data);
+
+        return $this->getFileHandler()->fputcsv($data, $this->getDelimiter(), $this->getEnclosure());
+    }
+    //end of general
+
+    /**
+     * @param string|array $data
+     * @return array
+     */
+    protected function convertToArrayIfNeeded($data)
+    {
         if (!is_array($data)) {
             $data = explode($this->getDelimiter(), $data);
             $data = array_map(function($value) {
@@ -127,9 +139,8 @@ class Writer extends AbstractBase
             }, $data);
         }
 
-        return $this->getFileHandler()->fputcsv($data, $this->getDelimiter(), $this->getEnclosure());
+        return $data;
     }
-    //end of general
 
     /**
      * @return string
