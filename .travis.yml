@@ -9,7 +9,7 @@ before_script:
   - composer self-update
   - composer install
   - phpenv rehash
-script: phpunit --coverage-text
+script: phpunit
 notifications:
   email:
     - artodeto@bazzline.net
