@@ -1,7 +1,7 @@
 {
     "name": "bazzline/php_component_csv",
     "description": "free as in freedom php component to easy up usage (reading and writing) of csv files for php 5.3 and above",
-    "keywords": ["php", "component", "filesystem", "easy", "csv", "easycsv", "adapter", "read", "write", "lgpl", "filter", "import", "export", "headline"],
+    "keywords": ["php", "component", "filesystem", "easy", "csv", "easycsv", "adapter", "read", "write", "lgpl", "filter", "import", "export", "headline", 'invoke", "tranversable", "iterator"],
     "type": "library",
     "minimum-stability": "dev",
     "require": {
