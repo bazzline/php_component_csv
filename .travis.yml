@@ -8,8 +8,6 @@ php:
 before_script:
   - composer self-update
   - composer install
-  - phpenv rehash
-  - phpenv config-rm xdebug.ini
 script: phpunit -v --colors --coverage-text
 notifications:
   email:
