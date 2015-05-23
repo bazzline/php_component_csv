@@ -21,6 +21,9 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     /** @var string */
     private $path;
 
+    /** @var array */
+    private $pathOfFiles;
+
     /** @var WriterFactory */
     private $writerFactory;
 
@@ -37,7 +40,17 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
         $this->readerFactory    = new ReaderFactory();
         $this->path             = __DIR__ . DIRECTORY_SEPARATOR . 'data';
+        $this->pathOfFiles      = array();
         $this->writerFactory    = new WriterFactory();
+    }
+
+    public function __destruct()
+    {
+        foreach ($this->pathOfFiles as $path) {
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
     }
 
     /**
@@ -66,7 +79,10 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
      */
     protected function createRealFilePath($name)
     {
-        return $this->path . DIRECTORY_SEPARATOR . $name;
+        $path                   = $this->path . DIRECTORY_SEPARATOR . $name;
+        $this->pathOfFiles[]    = $path;
+
+        return $path;
     }
 
     /**

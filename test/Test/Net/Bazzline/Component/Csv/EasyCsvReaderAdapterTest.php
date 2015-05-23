@@ -103,8 +103,9 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
             '1test1,"1test2ing this out",1test3' . PHP_EOL .
             '2test1,"2test2 ing this out ok",2test3' . PHP_EOL;
         $file       = $this->createFile('write.csv');
-        $file->setContent($content);
         $filesystem = $this->createFilesystem();
+
+        $file->setContent($content);
         $filesystem->addChild($file);
 
         $reader     = new EasyCsvReaderAdapter($file->url());
