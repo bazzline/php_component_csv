@@ -19,9 +19,10 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
      * @dataProvider getReaders
      * @param EasyCsvReaderAdapter $reader
      */
-    public function testOneAtAtime(EasyCsvReaderAdapter $reader)
+    public function testOneAtATime(EasyCsvReaderAdapter $reader)
     {
         $this->markTestSkipped();
+
         while ($row = $reader->getRow()) {
             $this->assertTrue(is_array($row));
             $this->assertEquals(3, count($row));
