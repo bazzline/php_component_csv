@@ -50,12 +50,10 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
      */
     public function getReaders()
     {
-        /*
         $file                           = $this->createFile('read.csv');
-        $fileWithSemicolonAsDelimiter   = $this->createFile('read_sc.csv');
+        //$fileWithSemicolonAsDelimiter   = $this->createFile('read_sc.csv');
         $filesystem                     = $this->createFilesystem();
-        */
-        $path                           = $this->createRealFilePath('read.csv');
+        //$path                           = $this->createRealFilePath('read.csv');
         $pathWithSemicolonAsDelimiter   = $this->createRealFilePath('read_cs.csv');
 
         $content =
@@ -73,19 +71,17 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
             '"4column2value"; "4column3value"; "4column4value"' . PHP_EOL .
             '5column2value"; "5column3value"; "5column4value"';
 
-        file_put_contents($path, $content);
+        //file_put_contents($path, $content);
         file_put_contents($pathWithSemicolonAsDelimiter, $contentWithSemicolonAsDelimiter);
 
-        /*
         $file->setContent($content);
-        $fileWithSemicolonAsDelimiter->setContent($contentWithSemicolonAsDelimiter);
+        //$fileWithSemicolonAsDelimiter->setContent($contentWithSemicolonAsDelimiter);
         $filesystem->addChild($file);
-        $filesystem->addChild($fileWithSemicolonAsDelimiter);
+        //$filesystem->addChild($fileWithSemicolonAsDelimiter);
 
         $reader                         = new EasyCsvReaderAdapter($file->url());
-        $readerWithSemicolonAsDelimiter = new EasyCsvReaderAdapter($fileWithSemicolonAsDelimiter->url());
-        */
-        $reader                         = new EasyCsvReaderAdapter($path);
+        //$reader                         = new EasyCsvReaderAdapter($path);
+        //$readerWithSemicolonAsDelimiter = new EasyCsvReaderAdapter($fileWithSemicolonAsDelimiter->url());
         $readerWithSemicolonAsDelimiter = new EasyCsvReaderAdapter($pathWithSemicolonAsDelimiter);
 
         $readerWithSemicolonAsDelimiter->setDelimiter(';');
