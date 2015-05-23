@@ -18,6 +18,9 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     /** @var ReaderFactory */
     private $readerFactory;
 
+    /** @var string */
+    private $path;
+
     /** @var WriterFactory */
     private $writerFactory;
 
@@ -31,8 +34,10 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->readerFactory = new ReaderFactory();
-        $this->writerFactory = new WriterFactory();
+
+        $this->readerFactory    = new ReaderFactory();
+        $this->path             = __DIR__ . DIRECTORY_SEPARATOR . 'data';
+        $this->writerFactory    = new WriterFactory();
     }
 
     /**
@@ -53,6 +58,15 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function createFile($name = 'test.csv', $permissions = 0700)
     {
         return vfsStream::newFile($name, $permissions);
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function createRealFilePath($name)
+    {
+        return $this->path . DIRECTORY_SEPARATOR . $name;
     }
 
     /**

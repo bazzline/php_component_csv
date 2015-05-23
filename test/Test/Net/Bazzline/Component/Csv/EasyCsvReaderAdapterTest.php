@@ -58,23 +58,23 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
         $fileWithSemicolonAsDelimiter   = $this->createFile('read_sc.csv');
         $filesystem                     = $this->createFilesystem();
 
-        $file->setContent(
+        $content =
             '"column1", "column2", "column3"' . PHP_EOL .
             '"1column2value", "1column3value", "1column4value"' . PHP_EOL .
             '"2column2value", "2column3value", "2column4value"' . PHP_EOL .
             '"3column2value", "3column3value", "3column4value"' . PHP_EOL .
             '"4column2value", "4column3value", "4column4value"' . PHP_EOL .
-            '"5column2value", "5column3value", "5column4value"'
-        );
-        $fileWithSemicolonAsDelimiter->setContent(
+            '"5column2value", "5column3value", "5column4value"';
+        $contentWithSemicolonAsDelimiter =
             '"column1"; "column2"; "column3"' . PHP_EOL .
             '"1column2value"; "1column3value"; "1column4value"' . PHP_EOL .
             '"2column2value"; "2column3value"; "2column4value"' . PHP_EOL .
             '"3column2value"; "3column3value"; "3column4value"' . PHP_EOL .
             '"4column2value"; "4column3value"; "4column4value"' . PHP_EOL .
-            '5column2value"; "5column3value"; "5column4value"'
-        );
+            '5column2value"; "5column3value"; "5column4value"';
 
+        $file->setContent($content);
+        $fileWithSemicolonAsDelimiter->setContent($contentWithSemicolonAsDelimiter);
         $filesystem->addChild($file);
         $filesystem->addChild($fileWithSemicolonAsDelimiter);
 
