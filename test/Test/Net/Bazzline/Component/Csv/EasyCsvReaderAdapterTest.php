@@ -21,8 +21,6 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
      */
     public function testOneAtATime(EasyCsvReaderAdapter $reader)
     {
-        $this->markTestSkipped();
-
         while ($row = $reader->getRow()) {
             $this->assertTrue(is_array($row));
             $this->assertEquals(3, count($row));
@@ -35,7 +33,6 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
      */
     public function testGetAll(EasyCsvReaderAdapter $reader)
     {
-        $this->markTestSkipped();
         $this->assertEquals(5, count($reader->getAll()));
     }
 
@@ -45,7 +42,6 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
      */
     public function testGetHeaders(EasyCsvReaderAdapter $reader)
     {
-        $this->markTestSkipped();
         $this->assertEquals(array("column1", "column2", "column3"), $reader->getHeaders());
     }
 
@@ -54,9 +50,13 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
      */
     public function getReaders()
     {
+        /*
         $file                           = $this->createFile('read.csv');
         $fileWithSemicolonAsDelimiter   = $this->createFile('read_sc.csv');
         $filesystem                     = $this->createFilesystem();
+        */
+        $path                           = $this->createRealFilePath('read.csv');
+        $pathWithSemicolonAsDelimiter   = $this->createRealFilePath('read_cs.csv');
 
         $content =
             '"column1", "column2", "column3"' . PHP_EOL .
@@ -73,6 +73,10 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
             '"4column2value"; "4column3value"; "4column4value"' . PHP_EOL .
             '5column2value"; "5column3value"; "5column4value"';
 
+        file_put_contents($path, $content);
+        file_put_contents($pathWithSemicolonAsDelimiter, $contentWithSemicolonAsDelimiter);
+
+        /*
         $file->setContent($content);
         $fileWithSemicolonAsDelimiter->setContent($contentWithSemicolonAsDelimiter);
         $filesystem->addChild($file);
@@ -80,6 +84,9 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
 
         $reader                         = new EasyCsvReaderAdapter($file->url());
         $readerWithSemicolonAsDelimiter = new EasyCsvReaderAdapter($fileWithSemicolonAsDelimiter->url());
+        */
+        $reader                         = new EasyCsvReaderAdapter($path);
+        $readerWithSemicolonAsDelimiter = new EasyCsvReaderAdapter($pathWithSemicolonAsDelimiter);
 
         $readerWithSemicolonAsDelimiter->setDelimiter(';');
 
