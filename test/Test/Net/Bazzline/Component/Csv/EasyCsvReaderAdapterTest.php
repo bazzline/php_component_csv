@@ -99,7 +99,6 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
 
     public function testReadWrittenFile()
     {
-        $this->markTestSkipped();
         $content    = 'column1,column2,column3' . PHP_EOL .
             '1test1,"1test2ing this out",1test3' . PHP_EOL .
             '2test1,"2test2 ing this out ok",2test3' . PHP_EOL;
