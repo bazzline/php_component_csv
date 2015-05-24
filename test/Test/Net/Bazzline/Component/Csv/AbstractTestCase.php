@@ -100,4 +100,12 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     {
         return $this->writerFactory->create();
     }
+
+    /**
+     * @return boolean
+     */
+    protected function phpVersionLessThen5Dot4()
+    {
+        return (version_compare(phpversion(), '5.4', '<'));
+    }
 }
