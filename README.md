@@ -1,5 +1,6 @@
 # CSV Handling Component for PHP
 
+* free as in freedom
 * heavily influenced by [jwage/easy-csv](https://github.com/jwage/easy-csv)
 * only created because of missing compatibility with php 5.3 and no official packagist support
 
