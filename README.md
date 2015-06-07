@@ -55,15 +55,29 @@ git clone https://github.com/bazzline/php_component_csv .
     composer require net_bazzline/php_component_csv:dev-master
 ```
 
-# Installation @todo
-
 # Usage
 
-## Read
+## Reader
 
 ### Read Content
 
 TODO: add other ways (readOne/readMany/readAll)
+```php
+$reader = new Reader('my/file.csv');
+
+//read one line
+echo $reader->readOne() . PHP_EOL;
+
+//read 10 lines
+foreach ($reader->readMany(10) as $line) {
+    echo $line . PHP_EOL;
+}
+
+//read all lines
+foreach ($reader->readAll() as $line) {
+    echo $line . PHP_EOL;
+}
+```
 
 #### By Iteration
 
@@ -75,6 +89,16 @@ if ($reader->hasHeadline()) {
 }
 
 foreach ($reader as $line) {
+    echo $line . PHP_EOL;
+}
+```
+
+#### By Using As A Function
+
+```php
+$reader = new Reader('my/file.csv');
+
+while ($line = $reader()) {
     echo $line . PHP_EOL;
 }
 ```
@@ -139,7 +163,7 @@ $writer->truncate();
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
 * [1.0.0](https://github.com/bazzline/php_component_csv/tree/1.0.0) - released at 07.06.2015
-    * 
+    * initial release 
 
 # Other great component
 
