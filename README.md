@@ -153,6 +153,10 @@ $writer = new Writer('my/file.csv');
 $writer->truncate();
 ```
 
+# API
+
+[API](http://www.bazzline.net/55371e9f93dbdec83dc82730a5a73db5fc36272e/index.html) is available at [bazzline.net](http://www.bazzline.net).
+
 # History
 
 * upcomming
@@ -161,6 +165,7 @@ $writer->truncate();
         * implement \_\_clone();
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+    * added link to api
     * removed "TODO"
 * [1.0.0](https://github.com/bazzline/php_component_csv/tree/1.0.0) - released at 07.06.2015
     * initial release 
