@@ -61,7 +61,6 @@ git clone https://github.com/bazzline/php_component_csv .
 
 ### Read Content
 
-TODO: add other ways (readOne/readMany/readAll)
 ```php
 $reader = new Reader('my/file.csv');
 
@@ -162,6 +161,7 @@ $writer->truncate();
         * implement \_\_clone();
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+    * removed "TODO"
 * [1.0.0](https://github.com/bazzline/php_component_csv/tree/1.0.0) - released at 07.06.2015
     * initial release 
 
