@@ -30,7 +30,7 @@ Take a look on [openhub.net](https://www.openhub.net/p/php_component_csv).
     * implemented iterator
     * readOne();
     * readMany();
-     readAll();
+    * readAll();
 * writer
     * truncate();
     * delete();
