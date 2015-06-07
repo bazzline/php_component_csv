@@ -21,6 +21,7 @@ Take a look on [openhub.net](https://www.openhub.net/p/php_component_csv).
 
 # Benefits
 
+* works with PHP 5.3 and above
 * \_\_invoke() implemented to use it as function
 * unified reader and writer
 * adapter to easy up migration from [EasyCsv - 0.0.1](https://github.com/jwage/easy-csv/tree/0.0.1/lib/EasyCSV) to this component
@@ -166,6 +167,7 @@ $writer->truncate();
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
     * added link to api
+    * added minimum php version requirement
     * removed "TODO"
 * [1.0.0](https://github.com/bazzline/php_component_csv/tree/1.0.0) - released at 07.06.2015
     * initial release 
