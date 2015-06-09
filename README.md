@@ -162,6 +162,7 @@ $writer->truncate();
 
 * upcomming
     * @todo
+        * implement writer::move($path);
         * extend unit tests
         * implement \_\_clone();
         * write documentation
