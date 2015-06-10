@@ -34,7 +34,7 @@ class Writer extends AbstractBase
      * @param bool $setPathAsCurrentPath
      * @return bool
      * @throws InvalidArgumentException
-     * @todo implement validation
+     * @todo implement path validation
      */
     public function copy($path, $setPathAsCurrentPath = false)
     {
@@ -48,6 +48,23 @@ class Writer extends AbstractBase
         }
 
         return $couldBeCopied;
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     * @todo implement path validation
+     */
+    public function move($path)
+    {
+        $couldBeMoved = rename($this->getPath(), $path);
+
+        if ($couldBeMoved) {
+            $this->close();
+            $this->setPath($path);
+        }
+
+        return $couldBeMoved;
     }
 
     /**

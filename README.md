@@ -33,9 +33,10 @@ Take a look on [openhub.net](https://www.openhub.net/p/php_component_csv).
     * readMany();
     * readAll();
 * writer
-    * truncate();
-    * delete();
     * copy();
+    * delete();
+    * move();
+    * truncate();
     * writeOne();
     * writeMany();
     * writeAll();   //truncates file and writes content
@@ -154,6 +155,24 @@ $writer = new Writer('my/file.csv');
 $writer->truncate();
 ```
 
+### Copy
+
+```php
+$writer = new Writer('my/file.csv');
+
+$writer->copy('my/my_first_copy.csv');    //writer will still write into "my_first_copy.csv"
+
+$writer->copy('my/my_second_copy.csv', true);    //writer will write in "my_second_copy.csv"
+```
+
+### Move
+
+```php
+$writer = new Writer('my/file.csv');
+
+$writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
+```
+
 # API
 
 [API](http://www.bazzline.net/55371e9f93dbdec83dc82730a5a73db5fc36272e/index.html) is available at [bazzline.net](http://www.bazzline.net).
@@ -162,7 +181,6 @@ $writer->truncate();
 
 * upcomming
     * @todo
-        * implement writer::move($path);
         * extend unit tests
         * implement \_\_clone();
         * write documentation
@@ -170,6 +188,8 @@ $writer->truncate();
     * added link to api
     * added minimum php version requirement
     * removed "TODO"
+* [1.1.0](https://github.com/bazzline/php_component_csv/tree/1.1.0) - released at 10.06.2015
+    * implemented "move($path)" method into [Writer](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Writer/Writer.php)
 * [1.0.0](https://github.com/bazzline/php_component_csv/tree/1.0.0) - released at 07.06.2015
     * initial release 
 
