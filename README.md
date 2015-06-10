@@ -185,11 +185,12 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * implement \_\_clone();
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+* [1.1.0](https://github.com/bazzline/php_component_csv/tree/1.1.0) - released at 10.06.2015
     * added link to api
     * added minimum php version requirement
-    * removed "TODO"
-* [1.1.0](https://github.com/bazzline/php_component_csv/tree/1.1.0) - released at 10.06.2015
     * implemented "move($path)" method into [Writer](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Writer/Writer.php)
+    * removed "TODO"
+    * updated dependencies
 * [1.0.0](https://github.com/bazzline/php_component_csv/tree/1.0.0) - released at 07.06.2015
     * initial release 
 
