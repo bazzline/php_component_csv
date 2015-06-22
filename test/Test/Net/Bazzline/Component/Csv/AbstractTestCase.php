@@ -6,8 +6,11 @@
 
 namespace Test\Net\Bazzline\Component\Csv;
 
+use Mockery;
 use Net\Bazzline\Component\Csv\Reader\Reader;
 use Net\Bazzline\Component\Csv\Reader\ReaderFactory;
+use Net\Bazzline\Component\Csv\Writer\FilteredWriter;
+use Net\Bazzline\Component\Csv\Writer\FilteredWriterFactory;
 use Net\Bazzline\Component\Csv\Writer\Writer;
 use Net\Bazzline\Component\Csv\Writer\WriterFactory;
 use org\bovigo\vfs\vfsStream;
@@ -15,14 +18,17 @@ use PHPUnit_Framework_TestCase;
 
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
-    /** @var ReaderFactory */
-    private $readerFactory;
+    /** @var FilteredWriterFactory */
+    private $filteredWriterFactory;
 
     /** @var string */
     private $path;
 
     /** @var array */
     private $pathOfFiles;
+
+    /** @var ReaderFactory */
+    private $readerFactory;
 
     /** @var WriterFactory */
     private $writerFactory;
@@ -38,10 +44,11 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        $this->readerFactory    = new ReaderFactory();
-        $this->path             = __DIR__ . DIRECTORY_SEPARATOR . 'data';
-        $this->pathOfFiles      = array();
-        $this->writerFactory    = new WriterFactory();
+        $this->filteredWriterFactory    = new FilteredWriterFactory();
+        $this->path                     = __DIR__ . DIRECTORY_SEPARATOR . 'data';
+        $this->pathOfFiles              = array();
+        $this->readerFactory            = new ReaderFactory();
+        $this->writerFactory            = new WriterFactory();
     }
 
     public function __destruct()
@@ -51,6 +58,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
                 unlink($path);
             }
         }
+        Mockery::close();
     }
 
     /**
@@ -91,6 +99,24 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function createReader()
     {
         return $this->readerFactory->create();
+    }
+
+
+
+    /**
+     * @return \Mockery\MockInterface|\Net\Bazzline\Component\Csv\Filter\FilterInterface
+     */
+    protected function createFilter()
+    {
+        return Mockery::mock('Net\Bazzline\Component\Csv\Filter\FilterInterface');
+    }
+
+    /**
+     * @return FilteredWriter
+     */
+    protected function createFilteredWriter()
+    {
+        return $this->filteredWriterFactory->create();
     }
 
     /**

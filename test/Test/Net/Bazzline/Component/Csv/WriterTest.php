@@ -14,7 +14,7 @@ class WriterTest extends AbstractTestCase
     /**
      * @var array
      */
-    private $contentAsArray = array(
+    protected $contentAsArray = array(
         array(
             'headlines foo',
             'headlines bar'
@@ -33,13 +33,13 @@ class WriterTest extends AbstractTestCase
         )
     );
 
-    private $enclosures = array(
+    protected $enclosures = array(
         's',
         '"',
         '|'
     );
 
-    private $delimiters = array(
+    protected $delimiters = array(
         's',
         'l',
         '-',
