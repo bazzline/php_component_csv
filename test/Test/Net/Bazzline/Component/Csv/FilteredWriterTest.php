@@ -11,7 +11,7 @@ namespace Test\Net\Bazzline\Component\Csv;
 //@todo implement writeOne(!array)
 class FilteredWriterTest extends WriterTest
 {
-    public function testWriteContentLinePerLineUsingWriteOneAndAlwaysInvalidFilter()
+    public function AtestWriteContentLinePerLineUsingWriteOneAndAlwaysInvalidFilter()
     {
         $delimiters = $this->delimiters;
 
@@ -40,12 +40,12 @@ class FilteredWriterTest extends WriterTest
     }
     public function testWriteContentLinePerLineUsingWriteOneAndPassingSecondRowAsValidFilter()
     {
-$this->markTestIncomplete();
-        $delimiters = $this->delimiters;
+        $delimiters             = $this->delimiters;
+        $lineNumberOfContent    = 1;
 
         foreach ($delimiters as $delimiter) {
             $collection         = $this->contentAsArray;
-            $expectedContent    = $this->convertArrayToStrings(array($collection[1]));
+            $expectedContent    = $this->convertArrayToStrings(array($collection[$lineNumberOfContent]), $delimiter);
             $filter             = $this->createFilter();
             $file               = $this->createFile();
             $filesystem         = $this->createFilesystem();
@@ -60,7 +60,7 @@ $this->markTestIncomplete();
             $writer->setPath($file->url());
 
             foreach ($collection as $index => $content) {
-                if ($index === 1) {
+                if ($index === $lineNumberOfContent) {
                     $this->assertNotFalse($writer->writeOne($content));
                 } else {
                     $this->assertFalse($writer->writeOne($content));
@@ -78,11 +78,12 @@ $this->markTestIncomplete();
      */
     private function convertArrayToStrings(array $data, $delimiter = ',')
     {
-        $string = '';
+        $contains   = $this->stringContains(' ');
+        $string     = '';
 
         foreach ($data as $contents) {
+
             foreach ($contents as &$part) {
-                $contains = $this->stringContains(' ');
                 if ($contains->evaluate($part, '', true)) {
                     $part = '"' . $part . '"';
                 }
