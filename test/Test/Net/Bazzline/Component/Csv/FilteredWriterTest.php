@@ -11,7 +11,7 @@ namespace Test\Net\Bazzline\Component\Csv;
 //@todo implement writeOne(!array)
 class FilteredWriterTest extends WriterTest
 {
-    public function AtestWriteContentLinePerLineUsingWriteOneAndAlwaysInvalidFilter()
+    public function testWriteContentLinePerLineUsingWriteOneAndAlwaysInvalidFilter()
     {
         $delimiters = $this->delimiters;
 
