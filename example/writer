@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @author stev leibelt <artodeto@bazzline.net>
+ * @since 2015-06-07
+ */
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$factory    = new \Net\Bazzline\Component\Csv\Writer\WriterFactory();
+$writer     = $factory->create();
+
+try {
+    $usage = 'usage: ' . basename(__FILE__) . ' "content,of,line,one" ["content,of,line,two"[...[<path/to/csv>]]]';
+
+    if ($argc < 2) {
+        throw new Exception('you have to provide at least one line of content');
+    }
+    array_shift($argv);
+    end($argv);
+
+    $path = (is_file(current($argv))) ? array_pop($argv) : __DIR__ . '/file/example.csv';
+    reset($argv);
+
+    $writer->setPath($path);
+
+    foreach ($argv as $line) {
+        if ($writer($line) === false) {
+            throw new Exception('could not write line "' . $line . '" to file "' . $path . '"');
+        }
+    }
+} catch (Exception $exception) {
+    echo $usage . PHP_EOL;
+    echo '----------------' . PHP_EOL;
+    echo $exception->getMessage() . PHP_EOL;
+    return 1;
+}

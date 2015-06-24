@@ -21,12 +21,14 @@ Take a look on [openhub.net](https://www.openhub.net/p/php_component_csv).
 
 # Benefits
 
+* low and stable memory usage (give it a try by using [benchmarkReader](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkReader) and [benchmarkWriter](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkWriter))
 * works with PHP 5.3 and above
 * \_\_invoke() implemented to use it as function
 * unified reader and writer
 * adapter to easy up migration from [EasyCsv - 0.0.1](https://github.com/jwage/easy-csv/tree/0.0.1/lib/EasyCSV) to this component
     * [writer](https://github.com/jwage/easy-csv/blob/master/lib/EasyCSV/Writer.php)
     * [reader](https://github.com/jwage/easy-csv/blob/master/lib/EasyCSV/Reader.php)
+* usage of [filters](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php) - control what comes in and what comes out
 * reader
     * implemented iterator
     * readOne();
@@ -186,6 +188,8 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+* [1.2.0](https://github.com/bazzline/php_component_csv/tree/1.2.0) - released at 25.06.2015
+    * added examples ([benchmarkReader](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkReader), [benchmarkWriter](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkWriter), [reader](https://github.com/bazzline/php_component_csv/blob/master/example/reader) and [writer](https://github.com/bazzline/php_component_csv/blob/master/example/writer))
     * implemented filter for reader and writer by creating the [FilterInterface](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php)
 * [1.1.0](https://github.com/bazzline/php_component_csv/tree/1.1.0) - released at 10.06.2015
     * added link to api

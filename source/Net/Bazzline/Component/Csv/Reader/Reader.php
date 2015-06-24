@@ -219,7 +219,9 @@ class Reader extends AbstractBase implements Iterator
         if ($this->hasHeadline()) {
             $headline = $this->getHeadline();
             foreach ($this as $line) {
-                $lines[] = array_combine($headline, $line);
+                if (!is_null($line)) {
+                    $lines[] = array_combine($headline, $line);
+                }
             }
         } else {
             foreach ($this as $line) {

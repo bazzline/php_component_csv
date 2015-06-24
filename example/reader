@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @author stev leibelt <artodeto@bazzline.net>
+ * @since 2015-06-07
+ */
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$factory    = new \Net\Bazzline\Component\Csv\Reader\ReaderFactory();
+$reader     = $factory->create();
+
+try {
+    $path = ($argc > 1) ? $argv[1] : __DIR__ . '/file/example.csv';
+
+    if (!file_exists($path)) {
+        throw new Exception('invalid file path provided: "' . $path . '"');
+    }
+
+    $reader->setPath($path);
+
+    while ($line = $reader()) {
+        echo implode("\t", $line) . PHP_EOL;
+    }
+} catch (Exception $exception) {
+    echo 'usage: ' . basename(__FILE__) . ' [<path/to/csv>]' . PHP_EOL;
+    echo '----------------' . PHP_EOL;
+    echo $exception->getMessage() . PHP_EOL;
+    return 1;
+}

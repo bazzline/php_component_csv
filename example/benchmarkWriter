@@ -1,0 +1,83 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @author stev leibelt <artodeto@bazzline.net>
+ * @since 2015-06-07
+ */
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$factory    = new \Net\Bazzline\Component\Csv\Writer\WriterFactory();
+$writer     = $factory->create();
+
+try {
+    $usage = 'usage: ' . basename(__FILE__) . ' <number of columns per line> <number of lines> [<path/to/csv>]';
+
+    if ($argc < 3) {
+        throw new Exception('invalid number of parameters provided');
+    }
+    array_shift($argv);
+    end($argv);
+
+    $path = (is_file(current($argv))) ? array_pop($argv) : __DIR__ . '/file/example.csv';
+    reset($argv);
+
+    $writer->setPath($path);
+
+    $arrayOfLine            = array();
+    $characters             = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ';
+    $numberOfCharacters     = strlen($characters);
+    $numberOfCharacterIndex = $numberOfCharacters - 1;
+    $numberOfColumnsPerLine = array_shift($argv);
+    $numberOfLines          = array_shift($argv);
+
+    $memoryUsageBeforeInMegabytes       = (memory_get_usage(true) / 1048576);
+    $memoryPeakUsageBeforeInMegabytes   = (memory_get_peak_usage(true) / 1048576);
+    $timeBeforeInMicroSeconds           = microtime(true);
+
+    for ($lineIterator = 0; $lineIterator < $numberOfLines; ++$lineIterator) {
+        $columns = array();
+
+        for ($columnIterator = 0; $columnIterator < $numberOfColumnsPerLine; ++$columnIterator) {
+            $column                         = '';
+            $numberOfCharactersPerColumn    = mt_rand(1, $numberOfCharacters);
+
+            for ($characterIterator = 0; $characterIterator < $numberOfCharactersPerColumn; ++$characterIterator) {
+                $index = mt_rand(0, $numberOfCharacterIndex);
+                $column .= $characters[$index];
+            }
+
+            $columns[] = $column;
+        }
+
+        $line = implode(',', $columns);
+
+        if ($writer($line) === false) {
+            throw new Exception('could not write line "' . $line . '" to file "' . $path . '"');
+        } else {
+            if (($lineIterator % 100) === 0) {
+                echo '.';
+            }
+        }
+    }
+    echo PHP_EOL;
+
+    $memoryUsageAfterInMegabytes        = (memory_get_usage(true) / 1048576);
+    $memoryPeakUsageAfterInMegabytes    = (memory_get_peak_usage(true) / 1048576);
+    $timeAfterInMicroSeconds            = microtime(true);
+
+    echo 'file path: ' . realpath($path) . PHP_EOL;
+    echo 'number of lines written: ' . $lineIterator . PHP_EOL;
+    echo 'runtime: ' . ceil($timeAfterInMicroSeconds - $timeBeforeInMicroSeconds) . ' seconds' . PHP_EOL;
+    echo 'memory usage' . PHP_EOL;
+    echo '    before writing: ' . $memoryUsageBeforeInMegabytes . ' MB' . PHP_EOL;
+    echo '    after writing: ' . $memoryUsageAfterInMegabytes . ' MB' . PHP_EOL;
+    echo 'memory peak usage' . PHP_EOL;
+    echo '    before writing: ' . $memoryPeakUsageBeforeInMegabytes . ' MB' . PHP_EOL;
+    echo '    after writing: ' . $memoryPeakUsageAfterInMegabytes . ' MB' . PHP_EOL;
+} catch (Exception $exception) {
+    echo $usage . PHP_EOL;
+    echo '----------------' . PHP_EOL;
+    echo $exception->getMessage() . PHP_EOL;
+    return 1;
+}

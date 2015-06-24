@@ -1,0 +1,53 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @author stev leibelt <artodeto@bazzline.net>
+ * @since 2015-06-07
+ */
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$factory    = new \Net\Bazzline\Component\Csv\Reader\ReaderFactory();
+$reader     = $factory->create();
+
+try {
+    $path = ($argc > 1) ? $argv[1] : __DIR__ . '/file/example.csv';
+
+    if (!file_exists($path)) {
+        throw new Exception('invalid file path provided: "' . $path . '"');
+    }
+
+    $reader->setPath($path);
+
+    $lineIterator                       = 0;
+    $memoryUsageBeforeInMegabytes       = (memory_get_usage(true) / 1048576);
+    $memoryPeakUsageBeforeInMegabytes   = (memory_get_peak_usage(true) / 1048576);
+    $timeBeforeInSeconds                = microtime(true);
+
+    while ($line = $reader()) {
+        ++$lineIterator;
+        if (($lineIterator % 100) === 0) {
+            echo '.';
+        }
+    }
+    echo PHP_EOL;
+
+    $memoryUsageAfterInMegabytes        = (memory_get_usage(true) / 1048576);
+    $memoryPeakUsageAfterInMegabytes    = (memory_get_peak_usage(true) / 1048576);
+    $timeAfterInMicroSeconds            = microtime(true);
+
+    echo 'file path: ' . realpath($path) . PHP_EOL;
+    echo 'number of lines read: ' . $lineIterator . PHP_EOL;
+    echo 'runtime: ' . ceil($timeAfterInMicroSeconds - $timeBeforeInSeconds) . ' seconds' . PHP_EOL;
+    echo 'memory usage' . PHP_EOL;
+    echo '    before writing: ' . $memoryUsageBeforeInMegabytes . ' MB' . PHP_EOL;
+    echo '    after writing: ' . $memoryUsageAfterInMegabytes . ' MB' . PHP_EOL;
+    echo 'memory peak usage' . PHP_EOL;
+    echo '    before writing: ' . $memoryPeakUsageBeforeInMegabytes . ' MB' . PHP_EOL;
+    echo '    after writing: ' . $memoryPeakUsageAfterInMegabytes . ' MB' . PHP_EOL;
+} catch (Exception $exception) {
+    echo 'usage: ' . basename(__FILE__) . ' [<path/to/csv>]' . PHP_EOL;
+    echo '----------------' . PHP_EOL;
+    echo $exception->getMessage() . PHP_EOL;
+    return 1;
+}
