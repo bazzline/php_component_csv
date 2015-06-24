@@ -223,7 +223,9 @@ class Reader extends AbstractBase implements Iterator
             }
         } else {
             foreach ($this as $line) {
-                $lines[] = $line;
+                if (!is_null($line)) {
+                    $lines[] = $line;
+                }
             }
         }
 
