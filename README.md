@@ -186,6 +186,7 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+    * implemented filter for reader and writer by creating the [FilterInterface](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php)
 * [1.1.0](https://github.com/bazzline/php_component_csv/tree/1.1.0) - released at 10.06.2015
     * added link to api
     * added minimum php version requirement
