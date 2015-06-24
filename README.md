@@ -183,6 +183,7 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
 
 * upcomming
     * @todo
+        t * add example for filter usage
         * extend unit tests
         * implement \_\_clone();
         * implement usage of filter in writer::copy
