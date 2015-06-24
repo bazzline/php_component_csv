@@ -264,7 +264,7 @@ class WriterTest extends AbstractTestCase
      * @param string $delimiter
      * @return string
      */
-    private function convertArrayToStrings(array $data, $delimiter = ',')
+    protected function convertArrayToStrings(array $data, $delimiter = ',')
     {
         $string = '';
 

@@ -27,8 +27,6 @@ class FilteredWriterFactory extends WriterFactory
         return $writer;
     }
 
-
-
     /**
      * @return FilterInterface
      */

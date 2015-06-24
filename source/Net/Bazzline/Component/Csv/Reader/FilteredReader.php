@@ -30,7 +30,7 @@ class FilteredReader extends Reader
 
         if (!$this->filter->isValid($data)) {
             $this->next();
-            $data = $this->current();
+            $data = ($this->valid()) ? $this->current() : null;
         }
 
         return $data;

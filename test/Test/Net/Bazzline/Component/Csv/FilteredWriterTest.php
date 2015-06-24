@@ -70,27 +70,4 @@ class FilteredWriterTest extends WriterTest
             $this->assertEquals($expectedContent, $file->getContent());
         }
     }
-
-    /**
-     * @param array $data
-     * @param string $delimiter
-     * @return string
-     */
-    private function convertArrayToStrings(array $data, $delimiter = ',')
-    {
-        $contains   = $this->stringContains(' ');
-        $string     = '';
-
-        foreach ($data as $contents) {
-
-            foreach ($contents as &$part) {
-                if ($contains->evaluate($part, '', true)) {
-                    $part = '"' . $part . '"';
-                }
-            }
-            $string .= implode($delimiter, $contents) . PHP_EOL;
-        }
-
-        return $string;
-    }
 }

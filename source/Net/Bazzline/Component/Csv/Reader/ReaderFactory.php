@@ -15,12 +15,20 @@ class ReaderFactory extends AbstractFactory
      */
     public function create()
     {
-        $reader = new Reader();
+        $reader = $this->getReader();
 
         $reader->setDelimiter($this->getDelimiter());
         $reader->setEnclosure($this->getEnclosure());
         $reader->setEscapeCharacter($this->getEscapeCharacter());
 
         return $reader;
+    }
+
+    /**
+     * @return Reader
+     */
+    protected function getReader()
+    {
+        return new Reader();
     }
 }

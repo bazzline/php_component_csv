@@ -7,6 +7,8 @@
 namespace Test\Net\Bazzline\Component\Csv;
 
 use Mockery;
+use Net\Bazzline\Component\Csv\Reader\FilteredReader;
+use Net\Bazzline\Component\Csv\Reader\FilteredReaderFactory;
 use Net\Bazzline\Component\Csv\Reader\Reader;
 use Net\Bazzline\Component\Csv\Reader\ReaderFactory;
 use Net\Bazzline\Component\Csv\Writer\FilteredWriter;
@@ -18,6 +20,9 @@ use PHPUnit_Framework_TestCase;
 
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
+    /** @var FilteredReaderFactory */
+    private $filteredReaderFactory;
+
     /** @var FilteredWriterFactory */
     private $filteredWriterFactory;
 
@@ -44,6 +49,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     {
         parent::__construct($name, $data, $dataName);
 
+        $this->filteredReaderFactory    = new FilteredReaderFactory();
         $this->filteredWriterFactory    = new FilteredWriterFactory();
         $this->path                     = __DIR__ . DIRECTORY_SEPARATOR . 'data';
         $this->pathOfFiles              = array();
@@ -91,6 +97,14 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
         $this->pathOfFiles[]    = $path;
 
         return $path;
+    }
+
+    /**
+     * @return FilteredReader
+     */
+    protected function createFilteredReader()
+    {
+        return $this->filteredReaderFactory->create();
     }
 
     /**

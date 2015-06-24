@@ -13,7 +13,7 @@ class ReaderTest extends AbstractTestCase
     /**
      * @var array
      */
-    private $contentAsArray = array(
+    protected $contentAsArray = array(
         array(
             'headlines foo',
             'headlines bar'
@@ -208,6 +208,30 @@ class ReaderTest extends AbstractTestCase
     }
 
     /**
+     * @return string
+     */
+    protected function getContentAsString()
+    {
+        return $this->convertArrayToStrings($this->contentAsArray);
+    }
+
+    /**
+     * @param array $data
+     * @param string $delimiter
+     * @return string
+     */
+    protected function convertArrayToStrings(array $data, $delimiter = ',')
+    {
+        $string = '';
+
+        foreach ($data as $contents) {
+            $string .= implode($delimiter, $contents) . PHP_EOL;
+        }
+
+        return $string;
+    }
+
+    /**
      * @param array $headline
      * @param array $content
      * @return array
@@ -224,29 +248,5 @@ class ReaderTest extends AbstractTestCase
         }
 
         return $adaptedContent;
-    }
-
-    /**
-     * @return string
-     */
-    private function getContentAsString()
-    {
-        return $this->convertArrayToStrings($this->contentAsArray);
-    }
-
-    /**
-     * @param array $data
-     * @param string $delimiter
-     * @return string
-     */
-    private function convertArrayToStrings(array $data, $delimiter = ',')
-    {
-        $string = '';
-
-        foreach ($data as $contents) {
-            $string .= implode($delimiter, $contents) . PHP_EOL;
-        }
-
-        return $string;
     }
 }
