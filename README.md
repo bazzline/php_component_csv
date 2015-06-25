@@ -183,12 +183,15 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
 
 * upcomming
     * @todo
-        t * add example for filter usage
+        * add example for filter usage
         * extend unit tests
         * implement \_\_clone();
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+    * added headline output support for Reader::readMany()
+    * fixed broken unit test for php 5.3
+    * removed duplicated code in Reader
 * [1.2.0](https://github.com/bazzline/php_component_csv/tree/1.2.0) - released at 25.06.2015
     * added examples ([benchmarkReader](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkReader), [benchmarkWriter](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkWriter), [reader](https://github.com/bazzline/php_component_csv/blob/master/example/reader) and [writer](https://github.com/bazzline/php_component_csv/blob/master/example/writer))
     * implemented filter for reader and writer by creating the [FilterInterface](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php)

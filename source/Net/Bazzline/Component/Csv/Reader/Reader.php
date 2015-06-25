@@ -245,7 +245,7 @@ class Reader extends AbstractBase implements Iterator
     {
         $lines = array();
 
-        while($line = $this()) {
+        while ($line = $this()) {
             $lines = $this->addToLinesIfLineIsValid($lines, $line, $keys);
         }
 
