@@ -25,7 +25,6 @@ class FilteredReader extends Reader
      * @param null|int $lineNumber - if "null", current line number is used
      * @return array|bool|string
      */
-    ///**
     public function readOne($lineNumber = null)
     {
         $content = parent::readOne($lineNumber);
@@ -38,24 +37,4 @@ class FilteredReader extends Reader
 
         return $content;
     }
-    //*/
-
-    /**
-     * @return mixed
-     */
-    /**
-    public function current()
-    {
-        $data           = parent::current();
-        $isValidData    = $this->filter->isValid($data);
-echo 'isValidData: ' . var_export($isValidData, true) . PHP_EOL;
-
-        if (!$isValidData) {
-            $this->next();
-            $data = ($this->valid()) ? $this->current() : null;
-        }
-
-        return $data;
-    }
-    */
 }
