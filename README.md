@@ -189,7 +189,11 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
-    * added headline output support for Reader::readMany()
+    * added headline output support as keys for Reader::readMany()
+    * added headline output support as keys for Reader::readOne()
+        * can be disabled by Reader::disableAddHeadlineToOutput()
+        * can be enabled by Reader::enableAddHeadlineToOutput()
+        * is enabled by default
     * fixed broken unit test for php 5.3
     * removed duplicated code in Reader
 * [1.2.0](https://github.com/bazzline/php_component_csv/tree/1.2.0) - released at 25.06.2015

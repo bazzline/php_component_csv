@@ -16,6 +16,9 @@ use SplFileObject;
 
 class Reader extends AbstractBase implements Iterator
 {
+    /** @var bool */
+    private $addHeadlineToOutput = true;
+
     /** @var int */
     private $initialLineNumber = 0;
 
@@ -122,8 +125,7 @@ class Reader extends AbstractBase implements Iterator
     public function rewind()
     {
         if ($this->hasHeadline()) {
-            $this->initialLineNumber = 0;
-            $this->setHeadline($this->readOne(0));
+            $this->updateHeadline();
             $lineNumber = 1;
         } else {
             $lineNumber = 0;
@@ -137,6 +139,24 @@ class Reader extends AbstractBase implements Iterator
     //end of Iterator
 
     //begin of headlines
+    public function disableAddHeadlineToOutput()
+    {
+        $this->addHeadlineToOutput = false;
+
+        return $this;
+    }
+
+    /**
+    /**
+     * @return $this
+     */
+    public function enableAddHeadlineToOutput()
+    {
+        $this->addHeadlineToOutput = true;
+
+        return $this;
+    }
+
     /**
      * @return $this
      */
@@ -153,11 +173,24 @@ class Reader extends AbstractBase implements Iterator
      */
     public function enableHasHeadline()
     {
-        $this->initialLineNumber = 0;
-        $this->setHeadline($this->readOne(0));
+        $this->updateHeadline();
         $this->rewind();
 
         return $this;
+    }
+
+    private function updateHeadline()
+    {
+        $this->initialLineNumber    = 0;
+        $wasEnabled                 = $this->addHeadlineToOutput;
+
+        if ($wasEnabled) {
+            $this->disableAddHeadlineToOutput();
+        }
+        $this->setHeadline($this->readOne(0));
+        if ($wasEnabled) {
+            $this->enableAddHeadlineToOutput();
+        }
     }
 
     /**
@@ -173,14 +206,18 @@ class Reader extends AbstractBase implements Iterator
     /**
      * @param null|int $lineNumber - if "null", current line number is used
      * @return array|bool|string
-     * @todo should we implement the "array_combine($headline, $line)" here also?
      */
     public function readOne($lineNumber = null)
     {
-        $file = $this->getFileHandler();
+        $file           = $this->getFileHandler();
+        $headline       = $this->getHeadline();
+        $hasHeadline    = $this->hasHeadline();
         $this->seekFileToCurrentLineNumberIfNeeded($file, $lineNumber);
 
-        $content = $this->current();
+        $addHeadline    = ($hasHeadline && $this->addHeadlineToOutput && ($this->current() !== false));
+        $content        = ($addHeadline)
+            ? $this->combineArrays($headline, $this->current())
+            : $this->current();
         $this->next();
 
         return $content;
@@ -193,8 +230,6 @@ class Reader extends AbstractBase implements Iterator
      */
     public function readMany($length, $lineNumberToStartWith = null)
     {
-        $headline       = $this->getHeadline();
-        $hasHeadline    = $this->hasHeadline();
         $lastLine       = $lineNumberToStartWith + $length;
         $lines          = array();
         $currentLine    = $lineNumberToStartWith;
@@ -202,9 +237,7 @@ class Reader extends AbstractBase implements Iterator
         //foreach not usable here since it is calling rewind before iterating
         while ($currentLine < $lastLine) {
             $line   = $this->readOne($currentLine);
-            $lines = ($hasHeadline)
-                ? $this->addToLinesIfLineIsValid($lines, $line, $headline)
-                : $this->addToLinesIfLineIsValid($lines, $line);
+            $lines  = $this->addToLinesIfLineIsValid($lines, $line);
             if (!$this->valid()) {
                 $currentLine = $lastLine;
             }
@@ -219,11 +252,11 @@ class Reader extends AbstractBase implements Iterator
      */
     public function readAll()
     {
-        $headline       = $this->getHeadline();
-        $hasHeadline    = $this->hasHeadline();
-        $lines          = ($hasHeadline)
-            ? $this->readAllValidLines($headline)
-            : $this->readAllValidLines();
+        $lines = array();
+
+        while ($line = $this()) {
+            $lines = $this->addToLinesIfLineIsValid($lines, $line);
+        }
 
         return $lines;
     }
@@ -238,34 +271,51 @@ class Reader extends AbstractBase implements Iterator
     }
 
     /**
-     * @param array $keys
+     * @param array $lines
+     * @param mixed $line
      * @return array
      */
-    private function readAllValidLines(array $keys = null)
+    private function addToLinesIfLineIsValid(array &$lines, $line)
     {
-        $lines = array();
-
-        while ($line = $this()) {
-            $lines = $this->addToLinesIfLineIsValid($lines, $line, $keys);
+        if (!is_null($line)) {
+            $lines[] = $line;
         }
 
         return $lines;
     }
 
     /**
-     * @param array $lines
-     * @param mixed $line
      * @param array $keys
+     * @param array $values
      * @return array
      */
-    private function addToLinesIfLineIsValid(array &$lines, $line, array $keys = null)
+    private function combineArrays(array $keys, array $values)
     {
-        if (!is_null($line)) {
-            $lines[] = (!is_null($keys))
-                ? array_combine($keys, $line) : $line;
+        $combined       = array();
+        $sizeOfKeys     = count($keys);
+        $sizeOfValues   = count($values);
+
+        if ($sizeOfKeys === $sizeOfValues) {
+            $combined = array_combine($keys, $values);
+        } else {
+            if ($sizeOfKeys > $sizeOfValues) {
+                foreach (array_values($keys) as $index => $key) {
+                    if (isset($values[$index])) {
+                        $combined[$key] = $values[$index];
+                    }
+                }
+            } else {
+                foreach (array_values($values) as $index => $value) {
+                    if (isset($keys[$index])) {
+                        $combined[$keys[$index]] = $value;
+                    } else {
+                        $combined[] = $value;
+                    }
+                }
+            }
         }
 
-        return $lines;
+        return $combined;
     }
 
     /**

@@ -58,7 +58,9 @@ class EasyCsvReaderAdapter
      */
     public function getHeaders()
     {
-        return $this->reader->readHeadline();
+        $headline =  $this->reader->readHeadline();
+
+        return $headline;
     }
 
     /**
@@ -66,6 +68,8 @@ class EasyCsvReaderAdapter
      */
     public function getRow()
     {
+        $this->reader->disableAddHeadlineToOutput();
+
         return $this->reader->readOne();
     }
 
@@ -74,6 +78,8 @@ class EasyCsvReaderAdapter
      */
     public function getAll()
     {
+        $this->reader->enableAddHeadlineToOutput();
+
         return $this->reader->readAll();
     }
 
