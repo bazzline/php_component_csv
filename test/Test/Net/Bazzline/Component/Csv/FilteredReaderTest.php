@@ -26,8 +26,8 @@ class FilteredReaderTest extends ReaderTest
         $reader->setFilter($filter);
         $reader->setPath($file->url());
 
-        $this->assertNull($reader->readOne());
-        $this->assertNull($reader());
+        $this->assertFalse($reader->readOne());
+        $this->assertFalse($reader());
         $this->assertEquals(array(), $reader->readAll());
     }
 

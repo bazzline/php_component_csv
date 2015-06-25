@@ -32,7 +32,7 @@ class FilteredReader extends Reader
         $isValidContent = $this->filter->isValid($content);
 
         if (!$isValidContent) {
-            $content = ($this->valid()) ? $this->readOne() : null;
+            $content = ($this->valid()) ? $this->readOne() : false;
         }
 
         return $content;
