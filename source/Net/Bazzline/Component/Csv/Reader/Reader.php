@@ -170,7 +170,6 @@ class Reader extends AbstractBase implements Iterator
     //end of headlines
 
     //begin of general
-
     /**
      * @param null|int $lineNumber - if "null", current line number is used
      * @return array|bool|string

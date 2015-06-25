@@ -26,9 +26,9 @@ class FilteredReaderTest extends ReaderTest
         $reader->setFilter($filter);
         $reader->setPath($file->url());
 
+        $this->assertNull($reader->readOne());
         $this->assertEquals(array(), $reader->readAll());
         $this->assertNull($reader());
-        $this->assertNull($reader->readOne());
     }
 
     public function testReadAllPassingSecondRowAsValidFilter()
@@ -49,8 +49,8 @@ class FilteredReaderTest extends ReaderTest
         $reader->setFilter($filter);
         $reader->setPath($file->url());
 
-echo 'expected: ' . var_export($expectedContent) . PHP_EOL;
-echo 'actual: ' . var_export($reader->readAll()) . PHP_EOL;
+echo 'expected: ' . var_export($expectedContent, true) . PHP_EOL;
+echo 'actual: ' . var_export($reader->readAll(), true) . PHP_EOL;
         //$this->assertEquals($expectedContent, $reader->readAll());
     }
 
