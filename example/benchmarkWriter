@@ -19,7 +19,7 @@ try {
     array_shift($argv);
     end($argv);
 
-    $path = (is_file(current($argv))) ? array_pop($argv) : __DIR__ . '/file/example.csv';
+    $path = (is_file(current($argv))) ? array_pop($argv) : __DIR__ . '/file/benchmark.csv';
     reset($argv);
 
     $writer->setPath($path);

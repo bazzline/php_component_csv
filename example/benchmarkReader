@@ -11,7 +11,7 @@ $factory    = new \Net\Bazzline\Component\Csv\Reader\ReaderFactory();
 $reader     = $factory->create();
 
 try {
-    $path = ($argc > 1) ? $argv[1] : __DIR__ . '/file/example.csv';
+    $path = ($argc > 1) ? $argv[1] : __DIR__ . '/file/benchmark.csv';
 
     if (!file_exists($path)) {
         throw new Exception('invalid file path provided: "' . $path . '"');
