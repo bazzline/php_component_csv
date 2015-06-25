@@ -28,7 +28,6 @@ class FilteredReader extends Reader
     /**
     public function readOne($lineNumber = null)
     {
-echo __LINE__ . PHP_EOL;
         $content = parent::readOne($lineNumber);
 
         $isValidContent = $this->filter->isValid($content);
@@ -36,12 +35,12 @@ echo __LINE__ . PHP_EOL;
 echo var_export($isValidContent, true) . PHP_EOL;
 
         if (!$isValidContent) {
-            $content = parent::readOne();
+            $content = ($this->valid()) ? $this->readOne() : null;
         }
 
         return $content;
     }
-     */
+    */
 
     /**
      * @return mixed

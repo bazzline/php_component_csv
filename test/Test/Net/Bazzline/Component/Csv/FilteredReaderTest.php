@@ -26,6 +26,7 @@ class FilteredReaderTest extends ReaderTest
         $reader->setFilter($filter);
         $reader->setPath($file->url());
 
+echo __METHOD__ . PHP_EOL;
         $this->assertNull($reader->readOne());
         $this->assertEquals(array(), $reader->readAll());
         $this->assertNull($reader());
@@ -49,6 +50,7 @@ class FilteredReaderTest extends ReaderTest
         $reader->setFilter($filter);
         $reader->setPath($file->url());
 
+echo __METHOD__ . PHP_EOL;
 echo 'expected: ' . var_export($expectedContent, true) . PHP_EOL;
 echo 'actual: ' . var_export($reader->readAll(), true) . PHP_EOL;
         //$this->assertEquals($expectedContent, $reader->readAll());
