@@ -34,8 +34,8 @@ class FilteredReaderTest extends ReaderTest
     public function testReadAllPassingSecondRowAsValidFilter()
     {
         $lineNumberOfContent    = 1;
-        $collection             = $this->contentAsArray;
-        $expectedContent        = array($collection[$lineNumberOfContent]);
+        $content                = $this->contentAsArray;
+        $expectedContent        = array($content[$lineNumberOfContent]);
         $file                   = $this->createFile();
         $filesystem             = $this->createFilesystem();
         $filter                 = $this->createFilter();
@@ -52,11 +52,42 @@ class FilteredReaderTest extends ReaderTest
         $this->assertEquals($expectedContent, $reader->readAll());
     }
 
+    public function testReadManyPassingSecondRowAsValidFilter()
+    {
+        $content                = $this->contentAsArray;
+        $expectedContent        = array();
+        $length                 = 2;
+        $file                   = $this->createFile();
+        $filesystem             = $this->createFilesystem();
+        $filter                 = $this->createFilter();
+        $reader                 = $this->createFilteredReader();
+        $start                  = 2;
+
+        $file->setContent($this->getContentAsString());
+        $filesystem->addChild($file);
+        $filter->shouldReceive('isValid')
+            ->andReturn(false, true);
+
+        $reader->setFilter($filter);
+        $reader->setPath($file->url());
+
+        //generating expected content
+        $end        = $start + $length;
+        $counter    = ($start + 1);    //+1 because of the first false from the filter
+
+        while ($counter < $end) {
+            $expectedContent[] = $content[$counter];
+            ++$counter;
+        }
+
+        $this->assertEquals($expectedContent, $reader->readMany($length, $start));
+    }
+
     public function testReadOnePassingSecondRowAsValidFilter()
     {
         $lineNumberOfContent    = 1;
-        $collection             = $this->contentAsArray;
-        $expectedContent        = $collection[$lineNumberOfContent];
+        $content                = $this->contentAsArray;
+        $expectedContent        = $content[$lineNumberOfContent];
         $file                   = $this->createFile();
         $filesystem             = $this->createFilesystem();
         $filter                 = $this->createFilter();

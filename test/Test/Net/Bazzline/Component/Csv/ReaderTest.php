@@ -8,6 +8,7 @@ namespace Test\Net\Bazzline\Component\Csv;
 
 //@todo implement call of this tests with different delimiters etc. (after the 
 //setters are developed
+//@todo implement tests with headlines enabled for each situation
 class ReaderTest extends AbstractTestCase
 {
     /**
@@ -150,11 +151,11 @@ class ReaderTest extends AbstractTestCase
 
     /**
      * @dataProvider readChunkOfTheContentDataProvider
-     * @param string $content
+     * @param array $content
      * @param int $end
      * @param int $start
      */
-    public function testReadChunkOfTheContentByProvidingStartLineNumberAndAmountOfLines($content, $end, $start)
+    public function testReadChunkOfTheContentByProvidingStartLineNumberAndAmountOfLines(array $content, $end, $start)
     {
         $file           = $this->createFile();
         $filesystem     = $this->createFilesystem();

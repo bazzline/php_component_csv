@@ -173,6 +173,7 @@ class Reader extends AbstractBase implements Iterator
     /**
      * @param null|int $lineNumber - if "null", current line number is used
      * @return array|bool|string
+     * @todo should we implement the "array_combine($headline, $line)" here also?
      */
     public function readOne($lineNumber = null)
     {
@@ -192,16 +193,18 @@ class Reader extends AbstractBase implements Iterator
      */
     public function readMany($length, $lineNumberToStartWith = null)
     {
+        $headline       = $this->getHeadline();
+        $hasHeadline    = $this->hasHeadline();
         $lastLine       = $lineNumberToStartWith + $length;
         $lines          = array();
         $currentLine    = $lineNumberToStartWith;
 
         //foreach not usable here since it is calling rewind before iterating
         while ($currentLine < $lastLine) {
-            $line = $this->readOne($currentLine);
-            if (!is_null($line)) {
-                $lines[] = $line;
-            }
+            $line   = $this->readOne($currentLine);
+            $lines = ($hasHeadline)
+                ? $this->addToLinesIfLineIsValid($lines, $line, $headline)
+                : $this->addToLinesIfLineIsValid($lines, $line);
             if (!$this->valid()) {
                 $currentLine = $lastLine;
             }
@@ -216,23 +219,11 @@ class Reader extends AbstractBase implements Iterator
      */
     public function readAll()
     {
-        $lines = array();
-
-        if ($this->hasHeadline()) {
-            $headline = $this->getHeadline();
-
-            while($line = $this()) {
-                if (!is_null($line)) {
-                    $lines[] = array_combine($headline, $line);
-                }
-            }
-        } else {
-            while($line = $this()) {
-                if (!is_null($line)) {
-                    $lines[] = $line;
-                }
-            }
-        }
+        $headline       = $this->getHeadline();
+        $hasHeadline    = $this->hasHeadline();
+        $lines          = ($hasHeadline)
+            ? $this->readAllValidLines($headline)
+            : $this->readAllValidLines();
 
         return $lines;
     }
@@ -244,6 +235,37 @@ class Reader extends AbstractBase implements Iterator
     protected function getFileHandlerOpenMode()
     {
         return 'r';
+    }
+
+    /**
+     * @param array $keys
+     * @return array
+     */
+    private function readAllValidLines(array $keys = null)
+    {
+        $lines = array();
+
+        while($line = $this()) {
+            $lines = $this->addToLinesIfLineIsValid($lines, $line, $keys);
+        }
+
+        return $lines;
+    }
+
+    /**
+     * @param array $lines
+     * @param mixed $line
+     * @param array $keys
+     * @return array
+     */
+    private function addToLinesIfLineIsValid(array &$lines, $line, array $keys = null)
+    {
+        if (!is_null($line)) {
+            $lines[] = (!is_null($keys))
+                ? array_combine($keys, $line) : $line;
+        }
+
+        return $lines;
     }
 
     /**
