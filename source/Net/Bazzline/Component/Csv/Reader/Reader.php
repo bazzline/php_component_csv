@@ -198,7 +198,10 @@ class Reader extends AbstractBase implements Iterator
 
         //foreach not usable here since it is calling rewind before iterating
         while ($currentLine < $lastLine) {
-            $lines[] = $this->readOne($currentLine);
+            $line = $this->readOne($currentLine);
+            if (!is_null($line)) {
+                $lines[] = $line;
+            }
             if (!$this->valid()) {
                 $currentLine = $lastLine;
             }
