@@ -61,7 +61,7 @@ git clone https://github.com/bazzline/php_component_csv .
 
 # Usage
 
-## Reader
+## [Reader](http://www.bazzline.net/55371e9f93dbdec83dc82730a5a73db5fc36272e/class-Net.Bazzline.Component.Csv.Reader.Reader.html)
 
 ### Read Content
 
@@ -106,7 +106,7 @@ while ($line = $reader()) {
 }
 ```
 
-## Write
+## [Writer](http://www.bazzline.net/55371e9f93dbdec83dc82730a5a73db5fc36272e/class-Net.Bazzline.Component.Csv.Writer.Writer.html)
 
 ### Write Content
 
@@ -184,11 +184,13 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
 * upcomming
     * @todo
         * add example for filter usage
+        * add documentation for filter usage
         * extend unit tests
         * implement \_\_clone();
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+* [1.3.0](https://github.com/bazzline/php_component_csv/tree/1.3.0) - released at 26.06.2015
     * added headline output support as keys for Reader::readMany()
     * added headline output support as keys for Reader::readOne()
         * can be disabled by Reader::disableAddHeadlineToOutput()
