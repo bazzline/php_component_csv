@@ -195,6 +195,7 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * can be enabled by Reader::enableAddHeadlineToOutput()
         * is enabled by default
     * fixed broken unit test for php 5.3
+    * moved complex array combine into [own project](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/HashMap/Combine.php)
     * removed duplicated code in Reader
 * [1.2.0](https://github.com/bazzline/php_component_csv/tree/1.2.0) - released at 25.06.2015
     * added examples ([benchmarkReader](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkReader), [benchmarkWriter](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkWriter), [reader](https://github.com/bazzline/php_component_csv/blob/master/example/reader) and [writer](https://github.com/bazzline/php_component_csv/blob/master/example/writer))

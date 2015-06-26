@@ -7,6 +7,7 @@
 namespace Net\Bazzline\Component\Csv\Reader;
 
 use Net\Bazzline\Component\Csv\AbstractFactory;
+use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 
 class ReaderFactory extends AbstractFactory
 {
@@ -17,11 +18,20 @@ class ReaderFactory extends AbstractFactory
     {
         $reader = $this->getReader();
 
+        $reader->setCombine($this->getCombine());
         $reader->setDelimiter($this->getDelimiter());
         $reader->setEnclosure($this->getEnclosure());
         $reader->setEscapeCharacter($this->getEscapeCharacter());
 
         return $reader;
+    }
+
+    /**
+     * @return Combine
+     */
+    protected function getCombine()
+    {
+        return new Combine();
     }
 
     /**

@@ -12,12 +12,16 @@ namespace Net\Bazzline\Component\Csv\Reader;
 use Iterator;
 use Net\Bazzline\Component\Csv\AbstractBase;
 use Net\Bazzline\Component\Csv\InvalidArgumentException;
+use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 use SplFileObject;
 
 class Reader extends AbstractBase implements Iterator
 {
     /** @var bool */
     private $addHeadlineToOutput = true;
+
+    /** @var Combine */
+    private $combine;
 
     /** @var int */
     private $initialLineNumber = 0;
@@ -203,6 +207,17 @@ class Reader extends AbstractBase implements Iterator
 
     //begin of general
     /**
+     * @param Combine $combine
+     * @return $this
+     */
+    public function setCombine(Combine $combine)
+    {
+        $this->combine = $combine;
+
+        return $this;
+    }
+
+    /**
      * @param null|int $lineNumber - if "null", current line number is used
      * @return array|bool|string
      */
@@ -215,7 +230,7 @@ class Reader extends AbstractBase implements Iterator
 
         $addHeadline    = ($hasHeadline && $this->addHeadlineToOutput && ($this->current() !== false));
         $content        = ($addHeadline)
-            ? $this->combineArrays($headline, $this->current())
+            ? $this->combine->combine($headline, $this->current())
             : $this->current();
         $this->next();
 
@@ -281,40 +296,6 @@ class Reader extends AbstractBase implements Iterator
         }
 
         return $lines;
-    }
-
-    /**
-     * @param array $keys
-     * @param array $values
-     * @return array
-     */
-    private function combineArrays(array $keys, array $values)
-    {
-        $combined       = array();
-        $sizeOfKeys     = count($keys);
-        $sizeOfValues   = count($values);
-
-        if ($sizeOfKeys === $sizeOfValues) {
-            $combined = array_combine($keys, $values);
-        } else {
-            if ($sizeOfKeys > $sizeOfValues) {
-                foreach (array_values($keys) as $index => $key) {
-                    if (isset($values[$index])) {
-                        $combined[$key] = $values[$index];
-                    }
-                }
-            } else {
-                foreach (array_values($values) as $index => $value) {
-                    if (isset($keys[$index])) {
-                        $combined[$keys[$index]] = $value;
-                    } else {
-                        $combined[] = $value;
-                    }
-                }
-            }
-        }
-
-        return $combined;
     }
 
     /**
