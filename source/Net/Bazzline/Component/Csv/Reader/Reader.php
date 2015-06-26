@@ -147,7 +147,6 @@ class Reader extends AbstractBase implements Iterator
     }
 
     /**
-    /**
      * @return $this
      */
     public function enableAddHeadlineToOutput()
