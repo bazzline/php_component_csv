@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @author stev leibelt <artodeto@bazzline.net>
+ * @since 2015-06-30
+ * @see: https://github.com/stevleibelt/examples/blob/master/php/cli/readline.php
+ */
+
+if (!function_exists('readline')) {
+    echo 'readline not installed' . PHP_EOL;
+    exit(1);
+}
+
+function completion($input, $index, $length) {
+    switch ($index) {
+        case 0:
+            return array('read', 'write', 'help');
+            break;
+        default:
+            echo 'index: ' . $index . ' input: ' . $input . ' length: ' . $length . PHP_EOL;
+            return array('help');
+            break;
+    }
+}
+
+readline_completion_function('completion');
+
+try {
+    $path = ($argc > 1) ? $argv[1] : __DIR__ . '/file/example.csv';
+
+    if (!file_exists($path)) {
+        throw new Exception('invalid file path provided: "' . $path . '"');
+    }
+
+    require_once __DIR__ . '/../vendor/autoload.php';
+
+    $factory    = new \Net\Bazzline\Component\Csv\Reader\ReaderFactory();
+    $reader     = $factory->create();
+    $factory    = new \Net\Bazzline\Component\Csv\Writer\WriterFactory();
+    $writer     = $factory->create();
+
+    $reader->setPath($path);
+    $writer->setPath($path);
+
+    while (true) {
+        $line = readline();
+        readline_add_history($line);
+        usleep(500000);
+    }
+} catch (Exception $exception) {
+    echo 'usage: ' . basename(__FILE__) . ' [<path/to/csv>]' . PHP_EOL;
+    echo '----------------' . PHP_EOL;
+    echo $exception->getMessage() . PHP_EOL;
+    return 1;
+}
