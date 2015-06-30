@@ -3,7 +3,10 @@
 /**
  * @author stev leibelt <artodeto@bazzline.net>
  * @since 2015-06-30
- * @see: https://github.com/stevleibelt/examples/blob/master/php/cli/readline.php
+ * @see: 
+ *  https://github.com/stevleibelt/examples/blob/master/php/cli/readline.php
+ *  https://github.com/yiisoft/yii2/issues/7974
+ *  https://github.com/ErikDubbelboer/php-repl/blob/master/repl.php
  */
 
 if (!function_exists('readline')) {
@@ -12,6 +15,7 @@ if (!function_exists('readline')) {
 }
 
 function completion($input, $index, $length) {
+    echo var_export(readline_info(), true) . PHP_EOL;
     switch ($index) {
         case 0:
             return array('read', 'write', 'help');
