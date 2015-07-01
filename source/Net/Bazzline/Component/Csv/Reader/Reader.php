@@ -244,6 +244,7 @@ class Reader extends AbstractBase implements Iterator
      */
     public function readMany($length, $lineNumberToStartWith = null)
     {
+        $this->rewind();
         $lastLine       = $lineNumberToStartWith + $length;
         $lines          = array();
         $currentLine    = $lineNumberToStartWith;
@@ -266,6 +267,7 @@ class Reader extends AbstractBase implements Iterator
      */
     public function readAll()
     {
+        $this->rewind();
         $lines = array();
 
         while ($line = $this()) {

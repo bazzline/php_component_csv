@@ -190,6 +190,10 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+        * use [generic agreement](https://github.com/bazzline/php_component_generic_agreement)
+* [1.4.0](https://github.com/bazzline/php_component_csv/tree/1.4.0) - released at 02.07.2015
+    * started [cli](https://github.com/bazzline/php_component_csv/blob/master/example/cli] example to easy up usage
+    * added "rewind" call when using reader::readAll() and reader::readMany()
 * [1.3.0](https://github.com/bazzline/php_component_csv/tree/1.3.0) - released at 26.06.2015
     * added headline output support as keys for Reader::readMany()
     * added headline output support as keys for Reader::readOne()

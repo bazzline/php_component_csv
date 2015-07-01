@@ -14,17 +14,78 @@ if (!function_exists('readline')) {
     exit(1);
 }
 
-function completion($input, $index, $length) {
-    echo var_export(readline_info(), true) . PHP_EOL;
-    switch ($index) {
-        case 0:
-            return array('read', 'write', 'help');
-            break;
-        default:
-            echo 'index: ' . $index . ' input: ' . $input . ' length: ' . $length . PHP_EOL;
-            return array('help');
-            break;
+function completion($input, $index, $length)
+{
+    $completion = array(
+        'clear' => array(),
+        'exit' => array(),
+        'help' => array(),
+        'read' => array(
+            'all',
+            'many',
+            'one'
+        ),
+        'write' => array(
+            'all',
+            'many',
+            'one'
+        )
+    );
+
+
+    if (($index === 0) && empty($input)) {
+        $completion = array_keys($completion);
+    } else {
+        if ($index === 0) {
+            $values     = array_keys($completion);
+            $completion = array();
+
+            foreach ($values as $value) {
+                if (substr($value, 0, $length) === $input) {
+                    $completion[] = $value;
+                }
+            }
+        } else {
+            $buffer         = preg_replace('/\s+/', ' ', trim(readline_info('line_buffer')));
+            $bufferInTokens = explode(' ', $buffer);
+            $level          = count($bufferInTokens);
+
+            if ($level === 1) {
+                $parent = $bufferInTokens[0];
+
+                if (isset($completion[$parent])) {
+                    $completion = $completion[$parent];
+                } else {
+                    $completion = false;
+                }
+            } else if ($level === 2) {
+                $parent                     = $bufferInTokens[0];
+                $inputLengthIsGreaterZero   = (strlen($input) > 0);
+
+                if ($inputLengthIsGreaterZero && isset($completion[$parent])) {
+                    $position   = strlen($input);
+                    $values     = $completion[$parent];
+                    $completion = array();
+
+                    foreach ($values as $value) {
+                        if (substr($value, 0, $position) === $input) {
+                            $completion[] = $value;
+                        }
+                    }
+
+                    if (empty($completion)) {
+                        $completion = false;
+                    }
+                } else {
+                    $completion = false;
+                }
+            } else {
+                $completion = false;
+            }
+        }
     }
+
+    return $completion;
 }
 
 readline_completion_function('completion');
@@ -47,7 +108,84 @@ try {
     $writer->setPath($path);
 
     while (true) {
-        $line = readline();
+        $line   = readline('cli: ');
+        $tokens = explode(' ', $line);
+
+        if (!empty($tokens)) {
+            //readline_add_history($line);
+            switch ($tokens[0]) {
+                case 'read':
+                    if (isset($tokens[1])) {
+                        switch ($tokens[1]) {
+                            case 'all':
+                                echo var_export($reader->readAll(), true) . PHP_EOL;
+                                break;
+                            case 'many':
+                                $showUsage = (!isset($tokens[2]) || ((int) $tokens[2]) === 0);
+                                if ($showUsage) {
+                                    echo 'usage: ' . PHP_EOL .
+                                        '    read many <length> [<start>]' . PHP_EOL;
+                                } else {
+                                    $length = $tokens[2];
+                                    $start  = (isset($tokens[3]) ? $tokens[3] : null);
+                                    echo var_export($reader->readMany($length, $start), true) . PHP_EOL;
+                                }
+                                break;
+                            case 'one':
+                                $start = (isset($tokens[2])) ? (int) $tokens[2] : null;
+                                echo var_export($reader->readOne($start), true) . PHP_EOL;
+                                break;
+                        }
+                    }
+                    break;
+                case 'write':
+                    if (isset($tokens[1])) {
+                        switch ($tokens[1]) {
+                            //@todo add support for headlines | truncate | copy ...
+                            case 'all':
+                            case 'many':
+                                $lines = $tokens;
+                                array_shift($lines);
+                                array_shift($lines);
+
+                                if ($tokens[1] === 'all') {
+                                    $numberOfLines = $writer->writeAll($lines);
+                                } else {
+                                    $numberOfLines = $writer->writeMany($lines);
+                                }
+
+                                if ($numberOfLines === false) {
+                                    echo 'no lines where written' . PHP_EOL;
+                                } else {
+                                    echo count($lines) . ' lines written' . PHP_EOL;
+                                }
+                                break;
+                            case 'one':
+                                $numberOfLines = $writer->writeOne($tokens[2]);
+
+                                if ($numberOfLines === false) {
+                                    echo 'no lines where written' . PHP_EOL;
+                                } else {
+                                    echo '1 line written' . PHP_EOL;
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                case 'clear':
+                    readline_clear_history();
+                    break;
+                case 'exit':
+                    exit(0);
+                    break;
+                case 'help':
+                    echo 'usage: ' . PHP_EOL .
+                        '    ' . basename(__FILE__) . ' [path to csv file]' . PHP_EOL;
+                    break;
+                default:
+                    break;
+            }
+        }
         readline_add_history($line);
         usleep(500000);
     }
