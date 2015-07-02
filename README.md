@@ -217,7 +217,7 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
 * [1.0.0](https://github.com/bazzline/php_component_csv/tree/1.0.0) - released at 07.06.2015
     * initial release 
 
-# Other great component
+# Other Great Components
 
 * [goodby/csv](https://github.com/goodby/csv)
 * [thephpleague/csv](https://github.com/thephpleague/csv)
