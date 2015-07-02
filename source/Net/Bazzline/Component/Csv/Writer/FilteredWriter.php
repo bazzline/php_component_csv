@@ -22,12 +22,12 @@ class FilteredWriter extends Writer
     }
 
     /**
-     * @param array|mixed $filteredData
+     * @param array|mixed $data
      * @return false|int
      */
-    public function writeOne($filteredData)
+    public function writeOne($data)
     {
-        $filteredData = $this->filter->filter($filteredData);
+        $filteredData = $this->filter->filter($data);
 
         return (!is_null($filteredData))
             ? parent::writeOne($filteredData) : false;
