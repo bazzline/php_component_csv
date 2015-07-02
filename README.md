@@ -28,7 +28,7 @@ Take a look on [openhub.net](https://www.openhub.net/p/php_component_csv).
 * adapter to easy up migration from [EasyCsv - 0.0.1](https://github.com/jwage/easy-csv/tree/0.0.1/lib/EasyCSV) to this component
     * [writer](https://github.com/jwage/easy-csv/blob/master/lib/EasyCSV/Writer.php)
     * [reader](https://github.com/jwage/easy-csv/blob/master/lib/EasyCSV/Reader.php)
-* usage of [validators](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Validator/ValidatorInterface.php) - control what comes in and what comes out
+* usage of [filters](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php) - control what comes in and what comes out
 * reader
     * implemented iterator
     * readOne();
@@ -192,9 +192,9 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
 * [1.5.0](https://github.com/bazzline/php_component_csv/tree/1.5.0) - released at xx.07.2015
     * added dependency to [generic agreement](https://github.com/bazzline/php_component_generic_agreement)
-        * replace [Filter](https://github.com/bazzline/php_component_csv/blob/1.4.0/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php) with [Validator](https://github.com/bazzline/php_component_csv/blob/1.4.0/source/Net/Bazzline/Component/Csv/Validator/ValidatorInterface.php)
+    * replaced own [FilterInterface](https://github.com/bazzline/php_component_csv/blob/1.4.0/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php) with external [FilterInterface](https://github.com/bazzline/php_component_generic_agreement/blob/master/source/Net/Bazzline/Component/GenericAgreement/Data/FilterableInterface.php)
 * [1.4.0](https://github.com/bazzline/php_component_csv/tree/1.4.0) - released at 02.07.2015
-    * started [cli](https://github.com/bazzline/php_component_csv/blob/master/example/cli] example to easy up usage
+    * started [cli](https://github.com/bazzline/php_component_csv/blob/master/example/cli) example to easy up usage
     * added "rewind" call when using reader::readAll() and reader::readMany()
 * [1.3.0](https://github.com/bazzline/php_component_csv/tree/1.3.0) - released at 26.06.2015
     * added headline output support as keys for Reader::readMany()

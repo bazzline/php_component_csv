@@ -6,28 +6,30 @@
 
 namespace Net\Bazzline\Component\Csv\Writer;
 
-use Net\Bazzline\Component\Csv\Validator\ValidatorInterface;
+use Net\Bazzline\Component\GenericAgreement\Data\FilterableInterface;
 
 class FilteredWriter extends Writer
 {
-    /** @var ValidatorInterface */
-    private $validator;
+    /** @var FilterableInterface */
+    private $filter;
 
     /**
-     * @param ValidatorInterface $validator
+     * @param FilterableInterface $filter
      */
-    public function setValidator(ValidatorInterface $validator)
+    public function setFilter(FilterableInterface $filter)
     {
-        $this->validator = $validator;
+        $this->filter = $filter;
     }
 
     /**
-     * @param array|mixed $data
+     * @param array|mixed $filteredData
      * @return false|int
      */
-    public function writeOne($data)
+    public function writeOne($filteredData)
     {
-        return ($this->validator->isValid($data))
-            ? parent::writeOne($data) : false;
+        $filteredData = $this->filter->filter($filteredData);
+
+        return (!is_null($filteredData))
+            ? parent::writeOne($filteredData) : false;
     }
 }

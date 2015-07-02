@@ -15,6 +15,7 @@ use Net\Bazzline\Component\Csv\Writer\FilteredWriter;
 use Net\Bazzline\Component\Csv\Writer\FilteredWriterFactory;
 use Net\Bazzline\Component\Csv\Writer\Writer;
 use Net\Bazzline\Component\Csv\Writer\WriterFactory;
+use Net\Bazzline\Component\GenericAgreement\Data\FilterableInterface;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit_Framework_TestCase;
 
@@ -118,11 +119,11 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @return \Mockery\MockInterface|\Net\Bazzline\Component\Csv\Validator\ValidatorInterface
+     * @return \Mockery\MockInterface|FilterableInterface
      */
-    protected function createValidator()
+    protected function createFilter()
     {
-        return Mockery::mock('Net\Bazzline\Component\Csv\Validator\ValidatorInterface');
+        return Mockery::mock('Net\Bazzline\Component\GenericAgreement\Data\FilterableInterface');
     }
 
     /**

@@ -6,19 +6,19 @@
 
 namespace Net\Bazzline\Component\Csv\Reader;
 
-use Net\Bazzline\Component\Csv\Validator\ValidatorInterface;
+use Net\Bazzline\Component\GenericAgreement\Data\FilterableInterface;
 
 class FilteredReader extends Reader
 {
-    /** @var ValidatorInterface */
-    private $validator;
+    /** @var FilterableInterface */
+    private $filter;
 
     /**
-     * @param ValidatorInterface $validator
+     * @param FilterableInterface $filter
      */
-    public function setValidator(ValidatorInterface $validator)
+    public function setFilter(FilterableInterface $filter)
     {
-        $this->validator = $validator;
+        $this->filter = $filter;
     }
 
     /**
@@ -27,14 +27,13 @@ class FilteredReader extends Reader
      */
     public function readOne($lineNumber = null)
     {
-        $content = parent::readOne($lineNumber);
+        $data           = parent::readOne($lineNumber);
+        $filteredData   = $this->filter->filter($data);
 
-        $isValidContent = $this->validator->isValid($content);
-
-        if (!$isValidContent) {
-            $content = ($this->valid()) ? $this->readOne() : false;
+        if (is_null($filteredData)) {
+            $filteredData = ($this->valid()) ? $this->readOne() : false;
         }
 
-        return $content;
+        return $filteredData;
     }
 }

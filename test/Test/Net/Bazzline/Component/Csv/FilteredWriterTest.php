@@ -18,17 +18,17 @@ class FilteredWriterTest extends WriterTest
         foreach ($delimiters as $delimiter) {
             $collection         = $this->contentAsArray;
             $expectedContent    = null;
-            $filter             = $this->createValidator();
+            $filter             = $this->createFilter();
             $file               = $this->createFile();
             $filesystem         = $this->createFilesystem();
             $writer             = $this->createFilteredWriter();
 
-            $filter->shouldReceive('isValid')
-                ->andReturn(false);
+            $filter->shouldReceive('filter')
+                ->andReturn(null);
             $filesystem->addChild($file);
 
             $writer->setDelimiter($delimiter);
-            $writer->setValidator($filter);
+            $writer->setFilter($filter);
             $writer->setPath($file->url());
 
             foreach ($collection as $content) {
@@ -46,17 +46,17 @@ class FilteredWriterTest extends WriterTest
         foreach ($delimiters as $delimiter) {
             $collection         = $this->contentAsArray;
             $expectedContent    = $this->convertArrayToStrings(array($collection[$lineNumberOfContent]), $delimiter);
-            $filter             = $this->createValidator();
+            $filter             = $this->createFilter();
             $file               = $this->createFile();
             $filesystem         = $this->createFilesystem();
             $writer             = $this->createFilteredWriter();
 
-            $filter->shouldReceive('isValid')
-                ->andReturn(false, true, false, false);
+            $filter->shouldReceive('filter')
+                ->andReturn(null, $expectedContent, null, null);
             $filesystem->addChild($file);
 
             $writer->setDelimiter($delimiter);
-            $writer->setValidator($filter);
+            $writer->setFilter($filter);
             $writer->setPath($file->url());
 
             foreach ($collection as $index => $content) {
