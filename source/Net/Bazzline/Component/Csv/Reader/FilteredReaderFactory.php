@@ -6,8 +6,8 @@
 
 namespace Net\Bazzline\Component\Csv\Reader;
 
-use Net\Bazzline\Component\Csv\Filter\AlwaysValidFilter;
-use Net\Bazzline\Component\Csv\Filter\FilterInterface;
+use Net\Bazzline\Component\Csv\Validator\AlwaysValidValidator;
+use Net\Bazzline\Component\Csv\Validator\ValidatorInterface;
 
 class FilteredReaderFactory extends ReaderFactory
 {
@@ -18,16 +18,16 @@ class FilteredReaderFactory extends ReaderFactory
     {
         $reader = new FilteredReader();
 
-        $reader->setFilter($this->getFilter());
+        $reader->setValidator($this->getValidator());
 
         return $reader;
     }
 
     /**
-     * @return FilterInterface
+     * @return ValidatorInterface
      */
-    protected function getFilter()
+    protected function getValidator()
     {
-        return new AlwaysValidFilter();
+        return new AlwaysValidValidator();
     }
 }

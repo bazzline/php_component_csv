@@ -4,9 +4,9 @@
  * @since 2015-05-14 
  */
 
-namespace Net\Bazzline\Component\Csv\Filter;
+namespace Net\Bazzline\Component\Csv\Validator;
 
-class AlwaysValidFilter implements FilterInterface
+class AlwaysValidValidator implements ValidatorInterface
 {
     /**
      * @param $data

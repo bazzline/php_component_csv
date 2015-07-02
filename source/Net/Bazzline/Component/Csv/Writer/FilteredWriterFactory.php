@@ -6,8 +6,8 @@
 
 namespace Net\Bazzline\Component\Csv\Writer;
 
-use Net\Bazzline\Component\Csv\Filter\AlwaysValidFilter;
-use Net\Bazzline\Component\Csv\Filter\FilterInterface;
+use Net\Bazzline\Component\Csv\Validator\AlwaysValidValidator;
+use Net\Bazzline\Component\Csv\Validator\ValidatorInterface;
 
 class FilteredWriterFactory extends WriterFactory
 {
@@ -22,16 +22,16 @@ class FilteredWriterFactory extends WriterFactory
             $writer = new FilteredWriter();
         }
 
-        $writer->setFilter($this->getFilter());
+        $writer->setValidator($this->getValidator());
 
         return $writer;
     }
 
     /**
-     * @return FilterInterface
+     * @return ValidatorInterface
      */
-    protected function getFilter()
+    protected function getValidator()
     {
-        return new AlwaysValidFilter();
+        return new AlwaysValidValidator();
     }
 }

@@ -28,7 +28,7 @@ Take a look on [openhub.net](https://www.openhub.net/p/php_component_csv).
 * adapter to easy up migration from [EasyCsv - 0.0.1](https://github.com/jwage/easy-csv/tree/0.0.1/lib/EasyCSV) to this component
     * [writer](https://github.com/jwage/easy-csv/blob/master/lib/EasyCSV/Writer.php)
     * [reader](https://github.com/jwage/easy-csv/blob/master/lib/EasyCSV/Reader.php)
-* usage of [filters](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php) - control what comes in and what comes out
+* usage of [validators](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Validator/ValidatorInterface.php) - control what comes in and what comes out
 * reader
     * implemented iterator
     * readOne();
@@ -190,8 +190,9 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
-        * use [generic agreement](https://github.com/bazzline/php_component_generic_agreement)
-            * replace Filter with Validator
+* [1.5.0](https://github.com/bazzline/php_component_csv/tree/1.5.0) - released at xx.07.2015
+    * added dependency to [generic agreement](https://github.com/bazzline/php_component_generic_agreement)
+        * replace [Filter](https://github.com/bazzline/php_component_csv/blob/1.4.0/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php) with [Validator](https://github.com/bazzline/php_component_csv/blob/1.4.0/source/Net/Bazzline/Component/Csv/Validator/ValidatorInterface.php)
 * [1.4.0](https://github.com/bazzline/php_component_csv/tree/1.4.0) - released at 02.07.2015
     * started [cli](https://github.com/bazzline/php_component_csv/blob/master/example/cli] example to easy up usage
     * added "rewind" call when using reader::readAll() and reader::readMany()
@@ -206,7 +207,7 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
     * removed duplicated code in Reader
 * [1.2.0](https://github.com/bazzline/php_component_csv/tree/1.2.0) - released at 25.06.2015
     * added examples ([benchmarkReader](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkReader), [benchmarkWriter](https://github.com/bazzline/php_component_csv/blob/master/example/benchmarkWriter), [reader](https://github.com/bazzline/php_component_csv/blob/master/example/reader) and [writer](https://github.com/bazzline/php_component_csv/blob/master/example/writer))
-    * implemented filter for reader and writer by creating the [FilterInterface](https://github.com/bazzline/php_component_csv/blob/master/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php)
+    * implemented filter for reader and writer by creating the [FilterInterface](https://github.com/bazzline/php_component_csv/blob/1.2.0/source/Net/Bazzline/Component/Csv/Filter/FilterInterface.php)
 * [1.1.0](https://github.com/bazzline/php_component_csv/tree/1.1.0) - released at 10.06.2015
     * added link to api
     * added minimum php version requirement

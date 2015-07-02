@@ -18,7 +18,7 @@ class FilteredWriterTest extends WriterTest
         foreach ($delimiters as $delimiter) {
             $collection         = $this->contentAsArray;
             $expectedContent    = null;
-            $filter             = $this->createFilter();
+            $filter             = $this->createValidator();
             $file               = $this->createFile();
             $filesystem         = $this->createFilesystem();
             $writer             = $this->createFilteredWriter();
@@ -28,7 +28,7 @@ class FilteredWriterTest extends WriterTest
             $filesystem->addChild($file);
 
             $writer->setDelimiter($delimiter);
-            $writer->setFilter($filter);
+            $writer->setValidator($filter);
             $writer->setPath($file->url());
 
             foreach ($collection as $content) {
@@ -46,7 +46,7 @@ class FilteredWriterTest extends WriterTest
         foreach ($delimiters as $delimiter) {
             $collection         = $this->contentAsArray;
             $expectedContent    = $this->convertArrayToStrings(array($collection[$lineNumberOfContent]), $delimiter);
-            $filter             = $this->createFilter();
+            $filter             = $this->createValidator();
             $file               = $this->createFile();
             $filesystem         = $this->createFilesystem();
             $writer             = $this->createFilteredWriter();
@@ -56,7 +56,7 @@ class FilteredWriterTest extends WriterTest
             $filesystem->addChild($file);
 
             $writer->setDelimiter($delimiter);
-            $writer->setFilter($filter);
+            $writer->setValidator($filter);
             $writer->setPath($file->url());
 
             foreach ($collection as $index => $content) {

@@ -15,7 +15,7 @@ class FilteredReaderTest extends ReaderTest
     {
         $file       = $this->createFile();
         $filesystem = $this->createFilesystem();
-        $filter     = $this->createFilter();
+        $filter     = $this->createValidator();
         $reader     = $this->createFilteredReader();
 
         $file->setContent($this->getContentAsString());
@@ -23,7 +23,7 @@ class FilteredReaderTest extends ReaderTest
         $filter->shouldReceive('isValid')
             ->andReturn(false);
 
-        $reader->setFilter($filter);
+        $reader->setValidator($filter);
         $reader->setPath($file->url());
 
         $this->assertFalse($reader->readOne());
@@ -38,7 +38,7 @@ class FilteredReaderTest extends ReaderTest
         $expectedContent        = array($content[$lineNumberOfContent]);
         $file                   = $this->createFile();
         $filesystem             = $this->createFilesystem();
-        $filter                 = $this->createFilter();
+        $filter                 = $this->createValidator();
         $reader                 = $this->createFilteredReader();
 
         $file->setContent($this->getContentAsString());
@@ -46,7 +46,7 @@ class FilteredReaderTest extends ReaderTest
         $filter->shouldReceive('isValid')
             ->andReturn(false, true, false, false);
 
-        $reader->setFilter($filter);
+        $reader->setValidator($filter);
         $reader->setPath($file->url());
 
         $this->assertEquals($expectedContent, $reader->readAll());
@@ -59,7 +59,7 @@ class FilteredReaderTest extends ReaderTest
         $length                 = 2;
         $file                   = $this->createFile();
         $filesystem             = $this->createFilesystem();
-        $filter                 = $this->createFilter();
+        $filter                 = $this->createValidator();
         $reader                 = $this->createFilteredReader();
         $start                  = 2;
 
@@ -68,7 +68,7 @@ class FilteredReaderTest extends ReaderTest
         $filter->shouldReceive('isValid')
             ->andReturn(false, true);
 
-        $reader->setFilter($filter);
+        $reader->setValidator($filter);
         $reader->setPath($file->url());
 
         //generating expected content
@@ -90,7 +90,7 @@ class FilteredReaderTest extends ReaderTest
         $expectedContent        = $content[$lineNumberOfContent];
         $file                   = $this->createFile();
         $filesystem             = $this->createFilesystem();
-        $filter                 = $this->createFilter();
+        $filter                 = $this->createValidator();
         $reader                 = $this->createFilteredReader();
 
         $file->setContent($this->getContentAsString());
@@ -98,7 +98,7 @@ class FilteredReaderTest extends ReaderTest
         $filter->shouldReceive('isValid')
             ->andReturn(false, true);
 
-        $reader->setFilter($filter);
+        $reader->setValidator($filter);
         $reader->setPath($file->url());
 
         $this->assertEquals($expectedContent, $reader());

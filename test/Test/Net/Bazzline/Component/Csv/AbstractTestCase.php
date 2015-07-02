@@ -118,11 +118,11 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @return \Mockery\MockInterface|\Net\Bazzline\Component\Csv\Filter\FilterInterface
+     * @return \Mockery\MockInterface|\Net\Bazzline\Component\Csv\Validator\ValidatorInterface
      */
-    protected function createFilter()
+    protected function createValidator()
     {
-        return Mockery::mock('Net\Bazzline\Component\Csv\Filter\FilterInterface');
+        return Mockery::mock('Net\Bazzline\Component\Csv\Validator\ValidatorInterface');
     }
 
     /**

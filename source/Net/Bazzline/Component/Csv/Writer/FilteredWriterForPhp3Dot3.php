@@ -6,19 +6,19 @@
 
 namespace Net\Bazzline\Component\Csv\Writer;
 
-use Net\Bazzline\Component\Csv\Filter\FilterInterface;
+use Net\Bazzline\Component\Csv\Validator\ValidatorInterface;
 
 class FilteredWriterForPhp3Dot3 extends WriterForPhp5Dot3
 {
-    /** @var FilterInterface */
-    private $filter;
+    /** @var ValidatorInterface */
+    private $validator;
 
     /**
-     * @param FilterInterface $filter
+     * @param ValidatorInterface $validator
      */
-    public function setFilter(FilterInterface $filter)
+    public function setValidator(ValidatorInterface $validator)
     {
-        $this->filter = $filter;
+        $this->validator = $validator;
     }
 
     /**
@@ -27,7 +27,7 @@ class FilteredWriterForPhp3Dot3 extends WriterForPhp5Dot3
      */
     public function writeOne($data)
     {
-        return ($this->filter->isValid($data))
+        return ($this->validator->isValid($data))
             ? parent::writeOne($data) : false;
     }
 }
