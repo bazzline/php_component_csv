@@ -225,3 +225,7 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
 * [ajgarlag/AiglCsv](https://github.com/ajgarlag/AjglCsv)
 * [jwage/easy-csv](https://github.com/jwage/easy-csv)
 * [swt83/php-csv](https://github.com/swt83/php-csv)
+
+# Final Words
+
+Star it if you like it :-). Add issues if you need it. Pull patches if you enjoy it. Write a blog entry if you use it :-D.
