@@ -9,86 +9,11 @@
  *  https://github.com/ErikDubbelboer/php-repl/blob/master/repl.php
  */
 
-if (!function_exists('readline')) {
-    echo 'readline not installed' . PHP_EOL;
-    exit(1);
-}
+use Net\Bazzline\Component\Cli\Readline\ManagerFactory;
+use Net\Bazzline\Component\Csv\Reader\ReaderFactory;
+use Net\Bazzline\Component\Csv\Writer\WriterFactory;
 
-function completion($input, $index, $length)
-{
-    $completion = array(
-        'clear' => array(),
-        'exit' => array(),
-        'help' => array(),
-        'read' => array(
-            'all',
-            'many',
-            'one'
-        ),
-        'write' => array(
-            'all',
-            'many',
-            'one'
-        )
-    );
-
-
-    if (($index === 0) && empty($input)) {
-        $completion = array_keys($completion);
-    } else {
-        if ($index === 0) {
-            $values     = array_keys($completion);
-            $completion = array();
-
-            foreach ($values as $value) {
-                if (substr($value, 0, $length) === $input) {
-                    $completion[] = $value;
-                }
-            }
-        } else {
-            $buffer         = preg_replace('/\s+/', ' ', trim(readline_info('line_buffer')));
-            $bufferInTokens = explode(' ', $buffer);
-            $level          = count($bufferInTokens);
-
-            if ($level === 1) {
-                $parent = $bufferInTokens[0];
-
-                if (isset($completion[$parent])) {
-                    $completion = $completion[$parent];
-                } else {
-                    $completion = false;
-                }
-            } else if ($level === 2) {
-                $parent                     = $bufferInTokens[0];
-                $inputLengthIsGreaterZero   = (strlen($input) > 0);
-
-                if ($inputLengthIsGreaterZero && isset($completion[$parent])) {
-                    $position   = strlen($input);
-                    $values     = $completion[$parent];
-                    $completion = array();
-
-                    foreach ($values as $value) {
-                        if (substr($value, 0, $position) === $input) {
-                            $completion[] = $value;
-                        }
-                    }
-
-                    if (empty($completion)) {
-                        $completion = false;
-                    }
-                } else {
-                    $completion = false;
-                }
-            } else {
-                $completion = false;
-            }
-        }
-    }
-
-    return $completion;
-}
-
-readline_completion_function('completion');
+require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
     $path = ($argc > 1) ? $argv[1] : __DIR__ . '/file/example.csv';
@@ -97,98 +22,112 @@ try {
         throw new Exception('invalid file path provided: "' . $path . '"');
     }
 
-    require_once __DIR__ . '/../vendor/autoload.php';
+    $managerFactory = new ManagerFactory();
+    $readerFactory  = new ReaderFactory();
+    $writerFactory  = new WriterFactory();
 
-    $factory    = new \Net\Bazzline\Component\Csv\Reader\ReaderFactory();
-    $reader     = $factory->create();
-    $factory    = new \Net\Bazzline\Component\Csv\Writer\WriterFactory();
-    $writer     = $factory->create();
+    $manager        = $managerFactory->create();
+    $reader         = $readerFactory->create();
+    $writer         = $writerFactory->create();
 
     $reader->setPath($path);
     $writer->setPath($path);
 
-    while (true) {
-        $line   = readline('cli: ');
-        $tokens = explode(' ', $line);
-
-        if (!empty($tokens)) {
-            //readline_add_history($line);
-            switch ($tokens[0]) {
-                case 'read':
-                    if (isset($tokens[1])) {
-                        switch ($tokens[1]) {
-                            case 'all':
-                                echo var_export($reader->readAll(), true) . PHP_EOL;
-                                break;
-                            case 'many':
-                                $showUsage = (!isset($tokens[2]) || ((int) $tokens[2]) === 0);
-                                if ($showUsage) {
-                                    echo 'usage: ' . PHP_EOL .
-                                        '    read many <length> [<start>]' . PHP_EOL;
-                                } else {
-                                    $length = $tokens[2];
-                                    $start  = (isset($tokens[3]) ? $tokens[3] : null);
-                                    echo var_export($reader->readMany($length, $start), true) . PHP_EOL;
-                                }
-                                break;
-                            case 'one':
-                                $start = (isset($tokens[2])) ? (int) $tokens[2] : null;
-                                echo var_export($reader->readOne($start), true) . PHP_EOL;
-                                break;
-                        }
-                    }
-                    break;
-                case 'write':
-                    if (isset($tokens[1])) {
-                        switch ($tokens[1]) {
-                            //@todo add support for headlines | truncate | copy ...
-                            case 'all':
-                            case 'many':
-                                $lines = $tokens;
-                                array_shift($lines);
-                                array_shift($lines);
-
-                                if ($tokens[1] === 'all') {
-                                    $numberOfLines = $writer->writeAll($lines);
-                                } else {
-                                    $numberOfLines = $writer->writeMany($lines);
-                                }
-
-                                if ($numberOfLines === false) {
-                                    echo 'no lines where written' . PHP_EOL;
-                                } else {
-                                    echo count($lines) . ' lines written' . PHP_EOL;
-                                }
-                                break;
-                            case 'one':
-                                $numberOfLines = $writer->writeOne($tokens[2]);
-
-                                if ($numberOfLines === false) {
-                                    echo 'no lines where written' . PHP_EOL;
-                                } else {
-                                    echo '1 line written' . PHP_EOL;
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                case 'clear':
-                    readline_clear_history();
-                    break;
-                case 'exit':
-                    exit(0);
-                    break;
-                case 'help':
+    $manager->setConfiguration(array(
+        'exit' => function () {
+            exit(0);
+        },
+        'help' => function () {
+            echo 'usage: ' . PHP_EOL .
+                '    ' . basename(__FILE__) . ' [path to csv file]' . PHP_EOL;
+        },
+        'read' => array(
+            'all' => function () use ($reader) {
+                foreach ($reader->readAll() as $line) {
+                    echo implode("\t", $line) . PHP_EOL;
+                }
+            },
+            'many' => function($length = null, $start = null) use ($reader) {
+                $showUsage = (is_null($length) || ((int) $length === 0));
+                if ($showUsage) {
                     echo 'usage: ' . PHP_EOL .
-                        '    ' . basename(__FILE__) . ' [path to csv file]' . PHP_EOL;
-                    break;
-                default:
-                    break;
+                        '    many <length> [<start>]' . PHP_EOL;
+                } else {
+                    foreach ($reader->readMany($length, $start) as $line) {
+                        echo implode("\t", $line) . PHP_EOL;
+                    }
+                }
+            },
+            'one' => function ($lineNumber = null) use ($reader) {
+                $showUsage = (is_null($lineNumber));
+                if ($showUsage) {
+                    echo 'usage: ' . PHP_EOL .
+                        '    one <line number>' . PHP_EOL;
+                } else {
+                    $line = $reader->readOne($lineNumber);
+
+                    if (is_array($line)) {
+                        echo implode("\t", $line) . PHP_EOL;
+                    } else if (is_scalar($line)) {
+                        echo $line . PHP_EOL;
+                    }
+                }
             }
-        }
-        readline_add_history($line);
-        usleep(500000);
-    }
+        ),
+        'write' => array(
+            'all' => function ($lines = null) use ($writer) {
+                //@todo move into closure to reuse it
+                $lines          = func_get_args();
+                $numberOfLines  = false;
+
+                if (is_array($lines)) {
+                    $numberOfLines = $writer->writeMany($lines);
+                }
+
+                if ($numberOfLines === false) {
+                    echo 'no lines where written' . PHP_EOL;
+                } else {
+                    echo count($lines) . ' lines written' . PHP_EOL;
+                }
+            },
+            'many' => function () use ($writer) {
+                $lines          = func_get_args();
+                $numberOfLines  = false;
+
+                if (is_array($lines)) {
+                    $numberOfLines = $writer->writeMany($lines);
+                }
+
+                if ($numberOfLines === false) {
+                    echo 'no lines where written' . PHP_EOL;
+                } else {
+                    echo count($lines) . ' lines written' . PHP_EOL;
+                }
+            },
+            'one' => function () use ($writer) {
+                $arguments          = func_get_args();
+                $numberOfArguments  = count($arguments);
+
+                if ($numberOfArguments === 1) {
+                    $line = $arguments[0];
+                    $numberOfLines = (is_scalar($line)) ? $writer->writeOne($line) : false;
+                } else if ($numberOfArguments > 1) {
+                    $line = implode(',', $arguments);
+                    $numberOfLines = (is_scalar($line)) ? $writer->writeOne($line) : false;
+                } else {
+                    $numberOfLines = false;
+                }
+
+                if ($numberOfLines === false) {
+                    echo 'no lines where written' . PHP_EOL;
+                } else {
+                    echo '1 line written' . PHP_EOL;
+                }
+            }
+        )
+    ));
+    $manager->setPrompt('csv cli: ');
+    $manager->run();
 } catch (Exception $exception) {
     echo 'usage: ' . basename(__FILE__) . ' [<path/to/csv>]' . PHP_EOL;
     echo '----------------' . PHP_EOL;
