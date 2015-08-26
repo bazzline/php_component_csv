@@ -24,6 +24,8 @@ try {
 
     $writer->setPath($path);
 
+    $writer('asdasds" asdasd');
+
     foreach ($argv as $line) {
         if ($writer($line) === false) {
             throw new Exception('could not write line "' . $line . '" to file "' . $path . '"');
