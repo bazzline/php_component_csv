@@ -6,11 +6,14 @@
 
 namespace Net\Bazzline\Component\Csv\Writer;
 
-use Net\Bazzline\Component\BatchJob\RuntimeException;
 use Net\Bazzline\Component\Csv\AbstractBase;
 use Net\Bazzline\Component\Csv\InvalidArgumentException;
 
-class Writer extends AbstractBase
+/**
+ * Class Writer
+ * @package Net\Bazzline\Component\Csv\Writer
+ */
+class Writer extends AbstractBase implements WriterInterface
 {
     const OPEN_MODE_APPEND      = 'a';
     const OPEN_MODE_TRUNCATE    = 'w';

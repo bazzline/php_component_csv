@@ -11,10 +11,12 @@ use Net\Bazzline\Component\Csv\Reader\FilteredReader;
 use Net\Bazzline\Component\Csv\Reader\FilteredReaderFactory;
 use Net\Bazzline\Component\Csv\Reader\Reader;
 use Net\Bazzline\Component\Csv\Reader\ReaderFactory;
+use Net\Bazzline\Component\Csv\Reader\ReaderInterface;
 use Net\Bazzline\Component\Csv\Writer\FilteredWriter;
 use Net\Bazzline\Component\Csv\Writer\FilteredWriterFactory;
 use Net\Bazzline\Component\Csv\Writer\Writer;
 use Net\Bazzline\Component\Csv\Writer\WriterFactory;
+use Net\Bazzline\Component\Csv\Writer\WriterInterface;
 use Net\Bazzline\Component\GenericAgreement\Data\FilterableInterface;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit_Framework_TestCase;
@@ -109,7 +111,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Reader
+     * @return ReaderInterface
      */
     protected function createReader()
     {
@@ -135,7 +137,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Writer
+     * @return Writer|WriterInterface
      */
     protected function createWriter()
     {

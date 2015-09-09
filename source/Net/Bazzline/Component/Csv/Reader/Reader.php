@@ -9,13 +9,12 @@ namespace Net\Bazzline\Component\Csv\Reader;
 //@see https://github.com/ajgarlag/AjglCsv/blob/master/Reader/ReaderAbstract.php
 //@see https://github.com/jwage/easy-csv/blob/master/lib/EasyCSV/Reader.php
 //@todo implement save version to call enable/disable headline before setDelimiter etc.
-use Iterator;
 use Net\Bazzline\Component\Csv\AbstractBase;
 use Net\Bazzline\Component\Csv\InvalidArgumentException;
 use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 use SplFileObject;
 
-class Reader extends AbstractBase implements Iterator
+class Reader extends AbstractBase implements ReaderInterface
 {
     /** @var bool */
     private $addHeadlineToOutput = true;
@@ -143,6 +142,9 @@ class Reader extends AbstractBase implements Iterator
     //end of Iterator
 
     //begin of headlines
+    /**
+     * @return $this
+     */
     public function disableAddHeadlineToOutput()
     {
         $this->addHeadlineToOutput = false;

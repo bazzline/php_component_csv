@@ -12,7 +12,7 @@ use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 class ReaderFactory extends AbstractFactory
 {
     /**
-     * @return object|Reader
+     * @return object|Reader|ReaderInterface
      */
     public function create()
     {
@@ -35,7 +35,7 @@ class ReaderFactory extends AbstractFactory
     }
 
     /**
-     * @return Reader
+     * @return Reader|ReaderInterface
      */
     protected function getReader()
     {

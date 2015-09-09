@@ -12,7 +12,7 @@ use Net\Bazzline\Component\GenericAgreement\Data\FilterableInterface;
 class FilteredReaderFactory extends ReaderFactory
 {
     /**
-     * @return FilteredReader
+     * @return FilteredReader|ReaderInterface
      */
     protected function getReader()
     {

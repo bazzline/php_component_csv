@@ -11,7 +11,7 @@ use Net\Bazzline\Component\Csv\AbstractFactory;
 class WriterFactory extends AbstractFactory
 {
     /**
-     * @return Writer|WriterForPhp5Dot3
+     * @return Writer|WriterForPhp5Dot3|WriterInterface
      */
     public function create()
     {
@@ -25,7 +25,7 @@ class WriterFactory extends AbstractFactory
     }
 
     /**
-     * @return Writer|WriterForPhp5Dot3
+     * @return Writer|WriterForPhp5Dot3|WriterInterface
      */
     protected function getWriter()
     {

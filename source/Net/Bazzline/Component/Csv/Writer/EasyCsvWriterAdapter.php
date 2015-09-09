@@ -8,15 +8,15 @@ namespace Net\Bazzline\Component\Csv\Writer;
 
 class EasyCsvWriterAdapter
 {
-    /** @var Writer|WriterForPhp5Dot3  */
+    /** @var Writer|WriterForPhp5Dot3|WriterInterface  */
     private $writer;
 
     /**
      * @param string $path
      * @param string $mode - is not used
-     * @param null|Writer $writer - optional
+     * @param null|WriterInterface $writer - optional
      */
-    public function __construct($path, $mode = 'r+', Writer $writer = null)
+    public function __construct($path, $mode = 'r+', WriterInterface $writer = null)
     {
         if (is_null($writer)) {
             $factory = new WriterFactory();

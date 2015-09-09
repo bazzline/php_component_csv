@@ -6,6 +6,10 @@
 
 namespace Net\Bazzline\Component\Csv\Reader;
 
+/**
+ * Class EasyCsvReaderAdapter
+ * @package Net\Bazzline\Component\Csv\Reader
+ */
 class EasyCsvReaderAdapter
 {
     /** @var Reader */
@@ -15,9 +19,9 @@ class EasyCsvReaderAdapter
      * @param string $path
      * @param string $mode - not in use
      * @param bool $headersInFirstRow
-     * @param Reader $reader - optional
+     * @param ReaderInterface $reader - optional
      */
-    public function __construct($path, $mode = 'r+', $headersInFirstRow = true, Reader $reader = null)
+    public function __construct($path, $mode = 'r+', $headersInFirstRow = true, ReaderInterface $reader = null)
     {
         if (is_null($reader)) {
             $factory = new ReaderFactory();

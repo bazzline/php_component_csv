@@ -8,7 +8,7 @@ namespace Net\Bazzline\Component\Csv;
 
 use SplFileObject;
 
-abstract class AbstractBase
+abstract class AbstractBase implements BaseInterface
 {
     /** @var string */
     private $delimiter = ',';
