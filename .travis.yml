@@ -13,3 +13,4 @@ script: phpunit -v --colors --coverage-text
 notifications:
   email:
     - artodeto@bazzline.net
+sudo: false
