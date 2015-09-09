@@ -12,7 +12,7 @@ namespace Net\Bazzline\Component\Csv\Reader;
  */
 class EasyCsvReaderAdapter
 {
-    /** @var Reader */
+    /** @var ReaderInterface */
     private $reader;
 
     /**
