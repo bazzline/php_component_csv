@@ -6,6 +6,10 @@
 
 namespace Net\Bazzline\Component\Csv;
 
+/**
+ * Class AbstractFactory
+ * @package Net\Bazzline\Component\Csv
+ */
 abstract class AbstractFactory implements FactoryInterface
 {
     /**
