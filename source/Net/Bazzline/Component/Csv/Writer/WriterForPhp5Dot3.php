@@ -6,6 +6,10 @@
 
 namespace Net\Bazzline\Component\Csv\Writer;
 
+/**
+ * Class WriterForPhp5Dot3
+ * @package Net\Bazzline\Component\Csv\Writer
+ */
 class WriterForPhp5Dot3 extends Writer
 {
     public function __destruct()
@@ -30,8 +34,8 @@ class WriterForPhp5Dot3 extends Writer
      */
     protected function open($path)
     {
-        $file = fopen($path, $this->getFileHandlerOpenMode());
+        $fileHandler = fopen($path, $this->getFileHandlerOpenMode());
 
-        return $file;
+        return $fileHandler;
     }
 }
