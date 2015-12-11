@@ -10,9 +10,9 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "mikey179/vfsstream": "1.6.0",
+        "mikey179/vfsstream": "1.6.1",
         "mockery/mockery": "0.9.4",
-        "phpunit/phpunit": ">=4.8.16"
+        "phpunit/phpunit": "4.8||~5.0"
     },
     "license": "LGPLv3",
     "authors": [
