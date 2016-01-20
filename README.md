@@ -12,7 +12,7 @@ The build status of the current master branch is tracked by Travis CI:
 [![Latest stable](https://img.shields.io/packagist/v/net_bazzline/php_component_csv.svg)](https://packagist.org/packages/net_bazzline/php_component_csv)
 
 The scrutinizer status are:
-[![code quality](https://scrutinizer-ci.com/g/bazzline/php_component_csv/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bazzline/php_component_csv/) | [![build status](https://scrutinizer-ci.com/g/bazzline/php_component_csv/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bazzline/php_component_csv/)
+[![code quality](https://scrutinizer-ci.com/g/bazzline/php_component_csv/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bazzline/php_component_csv/)
 
 The versioneye status is:
 [![Dependency Status](https://www.versioneye.com/user/projects/557492b1316137000d0000d0/badge.svg?style=flat)](https://www.versioneye.com/user/projects/557492b1316137000d0000d0)
@@ -190,6 +190,7 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
         * implement usage of filter in writer::copy
         * write documentation
         * write adapter to easy up migration from [EasyCsv - 0.0.2](https://github.com/jwage/easy-csv/tree/0.0.2/lib/EasyCSV) to this component
+    * removed build status from scrutinizer section
 * [1.5.11](https://github.com/bazzline/php_component_csv/tree/1.5.11) - released at 20.01.2016
     * updated depencenies
 * [1.5.10](https://github.com/bazzline/php_component_csv/tree/1.5.10) - released at 12.01.2016
