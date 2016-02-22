@@ -1,7 +1,33 @@
 {
     "name": "net_bazzline/php_component_csv",
     "description": "free as in freedom php component to easy up usage (reading and writing) of csv files for php 5.3 and above",
-    "keywords": ["php", "component", "filesystem", "easy", "csv", "easycsv", "adapter", "read", "write", "lgpl", "filter", "import", "export", "headline", "invoke", "tranversable", "iterator", "reusable", "free as in freedom", "low", "memory", "usage"],
+    "keywords": [
+        "bazzline",
+        "psr",
+        "psr-4",
+        "php", 
+        "component", 
+        "filesystem", 
+        "easy", 
+        "csv", 
+        "easycsv", 
+        "adapter", 
+        "read", 
+        "write", 
+        "lgpl", 
+        "filter", 
+        "import", 
+        "export", 
+        "headline", 
+        "invoke", 
+        "tranversable", 
+        "iterator", 
+        "reusable", 
+        "free as in freedom", 
+        "low", 
+        "memory", 
+        "usage"
+    ],
     "type": "library",
     "require": {
         "net_bazzline/php_component_cli_readline": "1.1.*",
@@ -12,9 +38,9 @@
     "require-dev": {
         "mikey179/vfsstream": "1.6.*",
         "mockery/mockery": "0.9.4",
-        "phpunit/phpunit": "~4.8||~5.0"
+        "phpunit/phpunit": "~4.8||~5.2"
     },
-    "license": "LGPLv3",
+    "license": "LGPL-3.0",
     "authors": [
         {
             "name": "Stev Leibelt",
@@ -24,9 +50,13 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Net\\Bazzline\\Component\\Csv": "source/",
-            "Test\\Net\\Bazzline\\Component\\Csv": "test/"
+        "psr-4": {
+            "Net\\Bazzline\\Component\\Csv\\": "source/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\Net\\Bazzline\\Component\\Csv\\": "test/"
         }
     }
 }
