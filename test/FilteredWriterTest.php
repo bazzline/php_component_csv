@@ -45,7 +45,14 @@ class FilteredWriterTest extends WriterTest
 
         foreach ($delimiters as $delimiter) {
             $collection         = $this->contentAsArray;
-            $expectedContent    = $this->convertArrayToStrings(array($collection[$lineNumberOfContent]), $delimiter);
+            $expectedContent    = $this->convertArrayToStrings(
+                [
+                    $collection[
+                        $lineNumberOfContent
+                    ]
+                ], 
+                $delimiter
+            );
             $filter             = $this->createFilter();
             $file               = $this->createFile();
             $filesystem         = $this->createFilesystem();

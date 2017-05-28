@@ -24,7 +24,7 @@ try {
 
     $writer->setPath($path);
 
-    $arrayOfLine            = array();
+    $arrayOfLine            = [];
     $characters             = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ';
     $numberOfCharacters     = strlen($characters);
     $numberOfCharacterIndex = $numberOfCharacters - 1;
@@ -36,7 +36,7 @@ try {
     $timeBeforeInMicroSeconds           = microtime(true);
 
     for ($lineIterator = 0; $lineIterator < $numberOfLines; ++$lineIterator) {
-        $columns = array();
+        $columns = [];
 
         for ($columnIterator = 0; $columnIterator < $numberOfColumnsPerLine; ++$columnIterator) {
             $column                         = '';

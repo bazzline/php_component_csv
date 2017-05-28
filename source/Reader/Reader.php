@@ -248,7 +248,7 @@ class Reader extends AbstractBase implements ReaderInterface
     {
         $this->rewind();
         $lastLine       = $lineNumberToStartWith + $length;
-        $lines          = array();
+        $lines          = [];
         $currentLine    = $lineNumberToStartWith;
 
         //foreach not usable here since it is calling rewind before iterating
@@ -270,7 +270,7 @@ class Reader extends AbstractBase implements ReaderInterface
     public function readAll()
     {
         $this->rewind();
-        $lines = array();
+        $lines = [];
 
         while ($line = $this()) {
             $lines = $this->addToLinesIfLineIsValid($lines, $line);

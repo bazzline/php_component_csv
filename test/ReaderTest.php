@@ -14,24 +14,24 @@ class ReaderTest extends AbstractTestCase
     /**
      * @var array
      */
-    protected $contentAsArray = array(
-        array(
+    protected $contentAsArray = [
+        [
             'headlines foo',
             'headlines bar'
-        ),
-        array(
+        ],
+        [
             'foo',
             'bar'
-        ),
-        array(
+        ],
+        [
             'foobar',
             'baz'
-        ),
-        array(
+        ],
+        [
             'baz',
             'barfoo'
-        )
-    );
+        ]
+    ];
 
     public function testHasHeadline()
     {
@@ -130,23 +130,23 @@ class ReaderTest extends AbstractTestCase
         $indices        = array_keys($content);
         $length         = count($indices);
 
-        return array(
-            'read only the first line' => array(
+        return [
+            'read only the first line' => [
                 'content'   => $content,
                 'end'       => $indices[1],
                 'start'     => $indices[0]
-            ),
-            'read one line the middle' => array(
+            ],
+            'read one line the middle' => [
                 'content'   => $content,
                 'end'       => $indices[2],
                 'start'     => $indices[1]
-            ),
-            'read whole content' => array(
+            ],
+            'read whole content' => [
                 'content'   => $content,
                 'end'       => $indices[($length - 1)],
                 'start'     => $indices[0]
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -166,7 +166,7 @@ class ReaderTest extends AbstractTestCase
         $filesystem->addChild($file);
         $reader->setPath($file->url());
 
-        $expectedContent = array();
+        $expectedContent = [];
 
         $counter = $start;
 
@@ -239,10 +239,10 @@ class ReaderTest extends AbstractTestCase
      */
     private function addHeadlineAsKeysToContent(array $headline, array $content)
     {
-        $adaptedContent = array();
+        $adaptedContent = [];
 
         foreach ($content as $key => $columns) {
-            $adaptedContent[$key] = array();
+            $adaptedContent[$key] = [];
             foreach ($columns as $columnKey => $columnContent) {
                 $adaptedContent[$key][$headline[$columnKey]] = $columnContent;
             }

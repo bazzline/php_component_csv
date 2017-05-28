@@ -14,38 +14,38 @@ class WriterTest extends AbstractTestCase
     /**
      * @var array
      */
-    protected $contentAsArray = array(
-        array(
+    protected $contentAsArray = [
+        [
             'headlines foo',
             'headlines bar'
-        ),
-        array(
+        ],
+        [
             'foo',
             'bar'
-        ),
-        array(
+        ],
+        [
             'foobar',
             'baz'
-        ),
-        array(
+        ],
+        [
             'baz',
             'barfoo'
-        )
-    );
+        ]
+    ];
 
-    protected $enclosures = array(
+    protected $enclosures = [
         's',
         '"',
         '|'
-    );
+    ];
 
-    protected $delimiters = array(
+    protected $delimiters = [
         's',
         'l',
         '-',
         ',',
         ';'
-    );
+    ];
 
     public function testWriteContentLinePerLineUsingWriteOne()
     {

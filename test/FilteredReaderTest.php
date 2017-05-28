@@ -28,14 +28,18 @@ class FilteredReaderTest extends ReaderTest
 
         $this->assertFalse($reader->readOne());
         $this->assertFalse($reader());
-        $this->assertEquals(array(), $reader->readAll());
+        $this->assertEquals([], $reader->readAll());
     }
 
     public function testReadAllPassingSecondRowAsValidFilter()
     {
         $lineNumberOfContent    = 1;
         $content                = $this->contentAsArray;
-        $expectedContent        = array($content[$lineNumberOfContent]);
+        $expectedContent        = [
+            $content[
+                $lineNumberOfContent
+            ]
+        ];
         $file                   = $this->createFile();
         $filesystem             = $this->createFilesystem();
         $filter                 = $this->createFilter();
@@ -55,7 +59,7 @@ class FilteredReaderTest extends ReaderTest
     public function testReadManyPassingSecondRowAsValidFilter()
     {
         $content                = $this->contentAsArray;
-        $expectedContent        = array();
+        $expectedContent        = [];
         $length                 = 2;
         $file                   = $this->createFile();
         $filesystem             = $this->createFilesystem();

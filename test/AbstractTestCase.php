@@ -48,14 +48,14 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
      * @param array  $data
      * @param string $dataName
      */
-    public function __construct($name = null, array $data = array(), $dataName = '')
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
 
         $this->filteredReaderFactory    = new FilteredReaderFactory();
         $this->filteredWriterFactory    = new FilteredWriterFactory();
         $this->path                     = __DIR__ . DIRECTORY_SEPARATOR . 'data';
-        $this->pathOfFiles              = array();
+        $this->pathOfFiles              = [];
         $this->readerFactory            = new ReaderFactory();
         $this->writerFactory            = new WriterFactory();
     }

@@ -33,99 +33,101 @@ try {
     $reader->setPath($path);
     $writer->setPath($path);
 
-    $manager->setConfiguration(array(
-        'exit' => function () {
-            exit(0);
-        },
-        'help' => function () {
-            echo 'usage: ' . PHP_EOL .
-                '    ' . basename(__FILE__) . ' [path to csv file]' . PHP_EOL;
-        },
-        'read' => array(
-            'all' => function () use ($reader) {
-                foreach ($reader->readAll() as $line) {
-                    echo implode("\t", $line) . PHP_EOL;
-                }
+    $manager->setConfiguration(
+        [
+            'exit' => function () {
+                exit(0);
             },
-            'many' => function($length = null, $start = null) use ($reader) {
-                $showUsage = (is_null($length) || ((int) $length === 0));
-                if ($showUsage) {
-                    echo 'usage: ' . PHP_EOL .
-                        '    many <length> [<start>]' . PHP_EOL;
-                } else {
-                    foreach ($reader->readMany($length, $start) as $line) {
+            'help' => function () {
+                echo 'usage: ' . PHP_EOL .
+                    '    ' . basename(__FILE__) . ' [path to csv file]' . PHP_EOL;
+            },
+            'read' => [
+                'all' => function () use ($reader) {
+                    foreach ($reader->readAll() as $line) {
                         echo implode("\t", $line) . PHP_EOL;
                     }
-                }
-            },
-            'one' => function ($lineNumber = null) use ($reader) {
-                $showUsage = (is_null($lineNumber));
-                if ($showUsage) {
-                    echo 'usage: ' . PHP_EOL .
-                        '    one <line number>' . PHP_EOL;
-                } else {
-                    $line = $reader->readOne($lineNumber);
+                },
+                'many' => function($length = null, $start = null) use ($reader) {
+                    $showUsage = (is_null($length) || ((int) $length === 0));
+                    if ($showUsage) {
+                        echo 'usage: ' . PHP_EOL .
+                            '    many <length> [<start>]' . PHP_EOL;
+                    } else {
+                        foreach ($reader->readMany($length, $start) as $line) {
+                            echo implode("\t", $line) . PHP_EOL;
+                        }
+                    }
+                },
+                'one' => function ($lineNumber = null) use ($reader) {
+                    $showUsage = (is_null($lineNumber));
+                    if ($showUsage) {
+                        echo 'usage: ' . PHP_EOL .
+                            '    one <line number>' . PHP_EOL;
+                    } else {
+                        $line = $reader->readOne($lineNumber);
 
-                    if (is_array($line)) {
-                        echo implode("\t", $line) . PHP_EOL;
-                    } else if (is_scalar($line)) {
-                        echo $line . PHP_EOL;
+                        if (is_array($line)) {
+                            echo implode("\t", $line) . PHP_EOL;
+                        } else if (is_scalar($line)) {
+                            echo $line . PHP_EOL;
+                        }
                     }
                 }
-            }
-        ),
-        'write' => array(
-            'all' => function ($lines = null) use ($writer) {
-                //@todo move into closure to reuse it
-                $lines          = func_get_args();
-                $numberOfLines  = false;
+            ],
+            'write' => [
+                'all' => function ($lines = null) use ($writer) {
+                    //@todo move into closure to reuse it
+                    $lines          = func_get_args();
+                    $numberOfLines  = false;
 
-                if (is_array($lines)) {
-                    $numberOfLines = $writer->writeMany($lines);
-                }
+                    if (is_array($lines)) {
+                        $numberOfLines = $writer->writeMany($lines);
+                    }
 
-                if ($numberOfLines === false) {
-                    echo 'no lines where written' . PHP_EOL;
-                } else {
-                    echo count($lines) . ' lines written' . PHP_EOL;
-                }
-            },
-            'many' => function () use ($writer) {
-                $lines          = func_get_args();
-                $numberOfLines  = false;
+                    if ($numberOfLines === false) {
+                        echo 'no lines where written' . PHP_EOL;
+                    } else {
+                        echo count($lines) . ' lines written' . PHP_EOL;
+                    }
+                },
+                'many' => function () use ($writer) {
+                    $lines          = func_get_args();
+                    $numberOfLines  = false;
 
-                if (is_array($lines)) {
-                    $numberOfLines = $writer->writeMany($lines);
-                }
+                    if (is_array($lines)) {
+                        $numberOfLines = $writer->writeMany($lines);
+                    }
 
-                if ($numberOfLines === false) {
-                    echo 'no lines where written' . PHP_EOL;
-                } else {
-                    echo count($lines) . ' lines written' . PHP_EOL;
-                }
-            },
-            'one' => function () use ($writer) {
-                $arguments          = func_get_args();
-                $numberOfArguments  = count($arguments);
+                    if ($numberOfLines === false) {
+                        echo 'no lines where written' . PHP_EOL;
+                    } else {
+                        echo count($lines) . ' lines written' . PHP_EOL;
+                    }
+                },
+                'one' => function () use ($writer) {
+                    $arguments          = func_get_args();
+                    $numberOfArguments  = count($arguments);
 
-                if ($numberOfArguments === 1) {
-                    $line = $arguments[0];
-                    $numberOfLines = (is_scalar($line)) ? $writer->writeOne($line) : false;
-                } else if ($numberOfArguments > 1) {
-                    $line = implode(',', $arguments);
-                    $numberOfLines = (is_scalar($line)) ? $writer->writeOne($line) : false;
-                } else {
-                    $numberOfLines = false;
-                }
+                    if ($numberOfArguments === 1) {
+                        $line = $arguments[0];
+                        $numberOfLines = (is_scalar($line)) ? $writer->writeOne($line) : false;
+                    } else if ($numberOfArguments > 1) {
+                        $line = implode(',', $arguments);
+                        $numberOfLines = (is_scalar($line)) ? $writer->writeOne($line) : false;
+                    } else {
+                        $numberOfLines = false;
+                    }
 
-                if ($numberOfLines === false) {
-                    echo 'no lines where written' . PHP_EOL;
-                } else {
-                    echo '1 line written' . PHP_EOL;
+                    if ($numberOfLines === false) {
+                        echo 'no lines where written' . PHP_EOL;
+                    } else {
+                        echo '1 line written' . PHP_EOL;
+                    }
                 }
-            }
-        )
-    ));
+            ]
+        ]
+    );
     $manager->setPrompt('csv cli: ');
     $manager->run();
 } catch (Exception $exception) {

@@ -42,7 +42,14 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
      */
     public function testGetHeaders(EasyCsvReaderAdapter $reader)
     {
-        $this->assertEquals(array("column1", "column2", "column3"), $reader->getHeaders());
+        $this->assertEquals(
+            [
+                "column1",
+                "column2",
+                "column3"
+            ], 
+            $reader->getHeaders()
+        );
     }
 
     /**
@@ -90,10 +97,14 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
 
         $readerWithSemicolonAsDelimiter->setDelimiter(';');
 
-        return array(
-            array($reader),
-            array($readerWithSemicolonAsDelimiter)
-        );
+        return [
+            [
+                $reader
+            ],
+            [
+                $readerWithSemicolonAsDelimiter
+            ]
+        ];
     }
 
 
@@ -111,18 +122,18 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
         $reader     = new EasyCsvReaderAdapter($file->url());
 
         $results    = $reader->getAll();
-        $expected   = array(
-            array(
+        $expected   = [
+            [
                 'column1' => '1test1',
                 'column2' => '1test2ing this out',
                 'column3' => '1test3'
-            ),
-            array(
+            ],
+            [
                 'column1' => '2test1',
                 'column2' => '2test2 ing this out ok',
                 'column3' => '2test3'
-            )
-        );
+            ]
+        ];
 
         $this->assertEquals($expected, $results);
     }
