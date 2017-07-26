@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+* fixed broken composer.json
+
 ## [1.6.0](https://github.com/bazzline/php_component_csv/tree/1.6.0) - released at 2017-05-28
 
 ### Changed

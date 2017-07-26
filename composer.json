@@ -32,7 +32,7 @@
     ],
     "type": "library",
     "require": {
-        "net_bazzline/php_component_cli_readline": "^1.3.*",
+        "net_bazzline/php_component_cli_readline": "1.3.*",
         "net_bazzline/php_component_generic_agreement": "1.0.*",
         "net_bazzline/php_component_toolbox": ">=1.3",
         "php": "^5.6||^7.0"
