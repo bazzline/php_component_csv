@@ -3,7 +3,7 @@
 This project aims to deliver an easy to use and free as in freedom php compontent for dealing with csv files (read and write).
 
 This component is heavily influenced by [jwage/easy-csv](https://github.com/jwage/easy-csv).
-It was mainly created created because of missing compatibility with php 5.6 and no official packagist support from [jwage/easy-csv](https://github.com/jwage/easy-csv).
+It was mainly created because of missing compatibility with php 5.6 and no official packagist support from [jwage/easy-csv](https://github.com/jwage/easy-csv).
 
 The build status of the current master branch is tracked by Travis CI:
 [![Build Status](https://travis-ci.org/bazzline/php_component_csv.png?branch=master)](http://travis-ci.org/bazzline/php_component_csv)
