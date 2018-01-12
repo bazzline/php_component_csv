@@ -67,18 +67,20 @@ composer require net_bazzline/php_component_csv:dev-master
 
 ```php
 $reader = new Reader('my/file.csv');
+//I am using json_encode() since there is no official and best way how to
+// output arrays on the command line.
 
 //read one line
-echo $reader->readOne() . PHP_EOL;
+echo json_encode($reader->readOne()) . PHP_EOL;
 
 //read 10 lines
 foreach ($reader->readMany(10) as $line) {
-    echo $line . PHP_EOL;
+    echo json_encode($line) . PHP_EOL;
 }
 
 //read all lines
 foreach ($reader->readAll() as $line) {
-    echo $line . PHP_EOL;
+    echo json_encode($line) . PHP_EOL;
 }
 ```
 
@@ -88,11 +90,11 @@ foreach ($reader->readAll() as $line) {
 $reader = new Reader('my/file.csv');
 
 if ($reader->hasHeadline()) {
-    echo 'headlines: ' . $reader->readHeadline();
+    echo 'headlines: ' . json_encode($reader->readHeadline());
 }
 
 foreach ($reader as $line) {
-    echo $line . PHP_EOL;
+    echo json_encode($line) . PHP_EOL;
 }
 ```
 
@@ -102,7 +104,7 @@ foreach ($reader as $line) {
 $reader = new Reader('my/file.csv');
 
 while ($line = $reader()) {
-    echo $line . PHP_EOL;
+    echo json_encode($line) . PHP_EOL;
 }
 ```
 
