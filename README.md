@@ -88,6 +88,8 @@ foreach ($reader->readAll() as $line) {
 
 ```php
 $reader = new Reader('my/file.csv');
+//I am using json_encode() since there is no official and best way how to
+// output arrays on the command line.
 
 if ($reader->hasHeadline()) {
     echo 'headlines: ' . json_encode($reader->readHeadline());
@@ -102,6 +104,8 @@ foreach ($reader as $line) {
 
 ```php
 $reader = new Reader('my/file.csv');
+//I am using json_encode() since there is no official and best way how to
+// output arrays on the command line.
 
 while ($line = $reader()) {
     echo json_encode($line) . PHP_EOL;
