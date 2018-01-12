@@ -168,7 +168,7 @@ $writer->truncate();
 ```php
 $writer = new Writer('my/file.csv');
 
-$writer->copy('my/my_first_copy.csv');    //writer will still write into "my_first_copy.csv"
+$writer->copy('my/my_first_copy.csv');    //writer will still write into "file.csv"
 
 $writer->copy('my/my_second_copy.csv', true);    //writer will write in "my_second_copy.csv"
 ```
