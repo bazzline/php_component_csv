@@ -1,7 +1,7 @@
 <?php
 /**
  * @author stev leibelt <artodeto@bazzline.net>
- * @since 2015-05-17 
+ * @since 2015-05-17
  */
 
 namespace Test\Net\Bazzline\Component\Csv;
@@ -47,7 +47,7 @@ class EasyCsvReaderAdapterTest extends AbstractTestCase
                 "column1",
                 "column2",
                 "column3"
-            ], 
+            ],
             $reader->getHeaders()
         );
     }
