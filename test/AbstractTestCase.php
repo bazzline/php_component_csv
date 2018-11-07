@@ -1,7 +1,7 @@
 <?php
 /**
  * @author stev leibelt <artodeto@bazzline.net>
- * @since 2015-04-24 
+ * @since 2015-04-24
  */
 
 namespace Test\Net\Bazzline\Component\Csv;
@@ -19,9 +19,9 @@ use Net\Bazzline\Component\Csv\Writer\WriterFactory;
 use Net\Bazzline\Component\Csv\Writer\WriterInterface;
 use Net\Bazzline\Component\GenericAgreement\Data\FilterableInterface;
 use org\bovigo\vfs\vfsStream;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /** @var FilteredReaderFactory */
     private $filteredReaderFactory;
