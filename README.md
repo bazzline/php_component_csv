@@ -194,6 +194,11 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
 * [jwage/easy-csv](https://github.com/jwage/easy-csv)
 * [swt83/php-csv](https://github.com/swt83/php-csv)
 
+# Hall of Fame - The list of contributors
+
+* [peter279k](https://github.com/peter279k) - [homepage](https://peterli.website) 
+* [stevleibelt](https://github.com/stevleibelt) - [homepage](https://stev.leibelt.de)
+
 # Final Words
 
 Star it if you like it :-). Add issues if you need it. Pull patches if you enjoy it. Write a blog entry if you use it. [Donate something](https://gratipay.com/~stevleibelt) if you love it :-].

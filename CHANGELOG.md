@@ -25,7 +25,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## [1.7.0](https://github.com/bazzline/php_component_csv/tree/1.6.0) - released at 2018-11-07
+
+### Added
+
+* add the php-nightly test in Travis CI build and let this allow failure.
+
+### Changed
+
 * fixed broken composer.json
+* let the package require PHP >=5.6 version.
+* remove the additional space.
+* we don't guarantee that the php-nightly test will always be successful.
+* set the different PHPUnit version to support multiple PHP versions.
+* using the class-based PHPUnit namespace to be compatible with the latest stable PHPUnit version.
 
 ## [1.6.0](https://github.com/bazzline/php_component_csv/tree/1.6.0) - released at 2017-05-28
 
