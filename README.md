@@ -151,7 +151,7 @@ $writer = new Writer('my/file.csv');
 $writer($line);
 
 foreach ($lines as $line) {
-    $writer($lines);
+    $writer($line);
 }
 ```
 
