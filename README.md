@@ -196,8 +196,12 @@ $writer->move('my/new_name.csv');   //writer will write in "new_name.csv"
 
 # Hall of Fame - The list of contributors
 
-* [peter279k](https://github.com/peter279k) - [homepage](https://peterli.website) 
+* [peter279k](https://github.com/peter279k) - [homepage](https://peterli.website)
 * [stevleibelt](https://github.com/stevleibelt) - [homepage](https://stev.leibelt.de)
+
+# Contributing
+
+Please see [CONTRIBUTING](https://github.com/bazzline/php_component_csv/blob/master/CONTRIBUTING.md) for details.
 
 # Final Words
 
